@@ -42,6 +42,9 @@
     <ClCompile Include="..\Classes\singletons\StringCache.cpp">
       <Filter>src\singletons</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ui_wrappers\TextBoxWrapper.cpp">
+      <Filter>src\ui_wrappers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -64,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\singletons\StringCache.h">
       <Filter>src\singletons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ui_wrappers\TextBoxWrapper.h">
+      <Filter>src\ui_wrappers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

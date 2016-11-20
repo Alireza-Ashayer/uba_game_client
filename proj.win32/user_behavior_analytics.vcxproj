@@ -149,6 +149,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\singletons\Options.cpp" />
     <ClCompile Include="..\Classes\singletons\StringCache.cpp" />
     <ClCompile Include="..\Classes\ui_wrappers\LabelWrapper.cpp" />
+    <ClCompile Include="..\Classes\ui_wrappers\TextBoxWrapper.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +159,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\singletons\Options.h" />
     <ClInclude Include="..\Classes\singletons\StringCache.h" />
     <ClInclude Include="..\Classes\ui_wrappers\LabelWrapper.h" />
+    <ClInclude Include="..\Classes\ui_wrappers\TextBoxWrapper.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
