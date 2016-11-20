@@ -23,7 +23,7 @@ public:
 
 
 
-	nba::Language getLanguage() const { return _language; }
+	uba::Language getLanguage() const { return _language; }
 	std::string getLanguageCode() const { return _languageCode; }
 
 

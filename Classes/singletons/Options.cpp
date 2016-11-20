@@ -6,20 +6,20 @@ USING_NS_CC;
 USING_NS_UBA;
 
 
-nba::Options::Options()
+uba::Options::Options()
 	: _language(Language::NONE)
 {
 
 }
 
 
-Options& nba::Options::getInstance()
+Options& uba::Options::getInstance()
 {
 	static Options instance;
 	return instance;
 }
 
-bool nba::Options::init()
+bool uba::Options::init()
 {
 	rapidjson::Document doc;
 
