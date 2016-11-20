@@ -10,6 +10,18 @@
     <Filter Include="src">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\scenes">
+      <UniqueIdentifier>{2b1dc78b-f4e9-403d-91c5-6854ed1f92a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ui_wrappers">
+      <UniqueIdentifier>{22e7eb9a-b439-4fc5-bc91-7a7d98be13ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\singletons">
+      <UniqueIdentifier>{aec8c3b2-38a3-418f-8434-131ff2e00e7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\macros">
+      <UniqueIdentifier>{c203d6c8-a0a9-430e-905d-bf3816921e89}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -18,8 +30,17 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="..\Classes\scenes\LoginScene.cpp">
+      <Filter>src\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ui_wrappers\LabelWrapper.cpp">
+      <Filter>src\ui_wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\singletons\Options.cpp">
+      <Filter>src\singletons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\singletons\StringCache.cpp">
+      <Filter>src\singletons</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -29,8 +50,20 @@
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\HelloWorldScene.h">
-      <Filter>src</Filter>
+    <ClInclude Include="..\Classes\scenes\LoginScene.h">
+      <Filter>src\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ui_wrappers\LabelWrapper.h">
+      <Filter>src\ui_wrappers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\singletons\Options.h">
+      <Filter>src\singletons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\macros\AppMacros.h">
+      <Filter>src\macros</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\singletons\StringCache.h">
+      <Filter>src\singletons</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
