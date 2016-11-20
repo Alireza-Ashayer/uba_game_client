@@ -5,6 +5,7 @@
 #include "cocos2d.h"
 
 #include "macros/AppMacros.h"
+#include "ui/UITextField.h"
 
 NS_UBA_BEGIN
 
@@ -19,6 +20,8 @@ private:
     bool init() override;
     
 	bool createUI();
+
+	void textFieldEvent(cocos2d::Ref *pSender, cocos2d::ui::TextField::EventType type);
 
 };
 
