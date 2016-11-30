@@ -45,6 +45,18 @@
     <ClCompile Include="..\Classes\ui_wrappers\TextBoxWrapper.cpp">
       <Filter>src\ui_wrappers</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ui_wrappers\CheckBoxWrapper.cpp">
+      <Filter>src\ui_wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ui_wrappers\ButtonWrapper.cpp">
+      <Filter>src\ui_wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\RegisterScene.cpp">
+      <Filter>src\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\InitialScene.cpp">
+      <Filter>src\scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -70,6 +82,18 @@
     </ClInclude>
     <ClInclude Include="..\Classes\ui_wrappers\TextBoxWrapper.h">
       <Filter>src\ui_wrappers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ui_wrappers\CheckBoxWrapper.h">
+      <Filter>src\ui_wrappers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ui_wrappers\ButtonWrapper.h">
+      <Filter>src\ui_wrappers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\RegisterScene.h">
+      <Filter>src\scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\InitialScene.h">
+      <Filter>src\scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

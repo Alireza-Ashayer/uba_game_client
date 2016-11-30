@@ -24,6 +24,9 @@ bool TextBoxWrapper::init(const std::string& placeholderKey, float size)
 	setFontName("fonts/arial.ttf");
 	setFontSize(size);
 	setPlaceHolder(StringCache::getInstance().getStringByKey(placeholderKey));
+	setTextColor(cocos2d::Color4B::BLACK);
+	
+
 
 	return true;
 }

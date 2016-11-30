@@ -1,7 +1,7 @@
 #include "AppDelegate.h"
 #include "SimpleAudioEngine.h"
 
-#include "scenes/LoginScene.h"
+#include "scenes/InitialScene.h"
 #include "macros/AppMacros.h"
 #include "singletons/Options.h"
 #include "singletons/StringCache.h"
@@ -44,7 +44,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto glview = director->getOpenGLView();
     if(!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
-        glview = GLViewImpl::createWithRect("user_behavior_analytics", cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
+        glview = GLViewImpl::createWithRect("user_behavior_analytics", cocos2d::Rect(0, 0, 960, 640));
 #else
         glview = GLViewImpl::create("user_behavior_analytics");
 #endif
@@ -76,7 +76,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 
 	//create first scene
-    auto scene = LoginScene::createScene();
+	auto scene = InitialScene::createScene();
 	if (scene)
 	{
 		director->runWithScene(scene);

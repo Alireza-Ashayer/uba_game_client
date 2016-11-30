@@ -1,6 +1,5 @@
 #include "LoginScene.h"
 #include "ui_wrappers/LabelWrapper.h"
-#include "ui_wrappers/TextBoxWrapper.h"
 
 USING_NS_CC;
 USING_NS_CC_UI;
@@ -19,7 +18,7 @@ Scene* LoginScene::createScene()
 
 bool LoginScene::init()
 {
-    if (!Layer::init())
+    if (!LayerColor::initWithColor(Color4B::WHITE))
         return false;
     
 
@@ -36,50 +35,81 @@ bool LoginScene::createUI()
 	auto visibleSize = Director::getInstance()->getVisibleSize();
 	auto origin = Director::getInstance()->getVisibleOrigin();
 
-	auto welcomeLabel = LabelWrapper::createByKey("WELCOME", 48);
-	if (welcomeLabel)
+	auto background = Sprite::create("textures/background.jpg");
+	if (background)
 	{
-		welcomeLabel->setPosition(visibleSize / 2 + Size(0, 200));
-		addChild(welcomeLabel);
-	}
-
-	auto usernameLabel = LabelWrapper::createByKey("USERNAME", 32);
-	if (usernameLabel)
-	{
-		usernameLabel->setPosition(visibleSize / 2 + Size(0, 100));
-		addChild(usernameLabel);
-	}
-
-	auto usernameTextbox = TextBoxWrapper::createByKey("USERNAME_PLACEHOLDER", 24);
-	if (usernameTextbox)
-	{
-		usernameTextbox->setName("username_tb");
-		usernameTextbox->setPosition(visibleSize / 2 + Size(0, 60));
-		usernameTextbox->setMaxLength(24);
-		usernameTextbox->setMaxLengthEnabled(true);
-		usernameTextbox->addEventListener(CC_CALLBACK_2(LoginScene::textFieldEvent, this));
-		addChild(usernameTextbox);
+		background->setPosition(visibleSize / 2);
+		addChild(background);
 	}
 
 
-	auto passwordLabel = LabelWrapper::createByKey("PASSWORD", 32);
-	if (passwordLabel)
+	auto signupLabel = LabelWrapper::createByKey("LOGIN", 36);
+	if (signupLabel)
 	{
-		passwordLabel->setPosition(visibleSize / 2 + Size(0, -50));
-		addChild(passwordLabel);
+		signupLabel->setPosition(visibleSize / 2 + Size(0, 250));
+		signupLabel->setTextColor(Color4B::BLACK);
+		addChild(signupLabel);
 	}
 
-	auto passwordTextbox = TextBoxWrapper::createByKey("PASSWORD_PLACEHOLDER", 24);
-	if (passwordTextbox)
+
+	//create text boxes
+	for (unsigned int i = 0; i < 2; ++i)
 	{
-		usernameTextbox->setName("password_tb");
-		passwordTextbox->setPosition(visibleSize / 2 + Size(0, -90));
-		passwordTextbox->setMaxLength(24);
-		passwordTextbox->setMaxLengthEnabled(true);
-		passwordTextbox->setPasswordEnabled(true);
-		passwordTextbox->addEventListener(CC_CALLBACK_2(LoginScene::textFieldEvent, this));
-		addChild(passwordTextbox);
+		std::string placeHolderKey;
+
+		switch (i)
+		{
+		case 0:
+			placeHolderKey = "YOUR_EMAIL";
+			break;
+		case 1:
+			placeHolderKey = "PASSWORD";
+			break;
+		}
+
+
+		int offsetY = (-(int)i) * 60;
+
+		auto textbox = TextBoxWrapper::createByKey(placeHolderKey, 24);
+		if (textbox)
+		{
+			textbox->setName(placeHolderKey);
+			textbox->setPosition(visibleSize / 2 + Size(0, 150 + offsetY));
+			textbox->setMaxLength(24);
+			textbox->setMaxLengthEnabled(true);
+			textbox->addEventListener(CC_CALLBACK_2(LoginScene::textFieldEvent, this));
+			addChild(textbox);
+
+
+			if (i == 1)
+			{
+				textbox->setPasswordEnabled(true);
+			}
+		}
 	}
+
+
+	//login button
+	auto loginButton = ButtonWrapper::createByKey("LOGIN", 24);
+	if (loginButton)
+	{
+		loginButton->setName("login_button");
+		loginButton->addTouchEventListener(CC_CALLBACK_2(LoginScene::buttonCallback, this));
+		loginButton->setPosition(visibleSize / 2 + Size(100, -250));
+		addChild(loginButton);
+	}
+
+
+	//cancel button
+	auto cancelButton = ButtonWrapper::createByKey("CANCEL", 24);
+	if (cancelButton)
+	{
+		cancelButton->setName("cancel_button");
+		cancelButton->addTouchEventListener(CC_CALLBACK_2(LoginScene::buttonCallback, this));
+		cancelButton->setPosition(visibleSize / 2 + Size(-100, -250));
+		addChild(cancelButton);
+	}
+
 
 	return true;
 }
@@ -109,3 +139,20 @@ void uba::LoginScene::textFieldEvent(cocos2d::Ref *pSender, cocos2d::ui::TextFie
 }
 
 
+void uba::LoginScene::buttonCallback(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType type)
+{
+	if (type == Button::TouchEventType::ENDED)
+	{
+		auto button = static_cast<ButtonWrapper*>(pSender);
+		auto name = button->getName();
+
+		if (name == "login_button")
+		{
+			//TODO
+		}
+		else if (name == "cancel_button")
+		{
+			Director::getInstance()->popScene();
+		}
+	}
+}

@@ -1,7 +1,15 @@
 {
-    "WELCOME": "Welcome",
-    "USERNAME": "Username",
-    "USERNAME_PLACEHOLDER": "Please enter a username",
-    "PASSWORD": "Password",
-    "PASSWORD_PLACEHOLDER": "Please enter your password"
+    "SIGN_UP": "Sign Up",
+    "FIRST_NAME": "First Name",
+    "LAST_NAME": "Last Name",
+    "YOUR_EMAIL": "Your Email",
+    "RE_ENTER_EMAIL" : "Re-enter Email",
+    "NEW_PASSWORD" : "New Password",
+    "PASSWORD" : "Password",
+    "MALE" : "Male",
+    "FEMALE" : "Female",
+    "REGISTER" : "Register",
+    "LOGIN" : "Login",
+    "WELCOME" : "Welcome",
+    "CANCEL" : "Cancel"
 }

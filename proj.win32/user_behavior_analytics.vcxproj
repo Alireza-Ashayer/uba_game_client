@@ -145,9 +145,13 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\scenes\InitialScene.cpp" />
     <ClCompile Include="..\Classes\scenes\LoginScene.cpp" />
+    <ClCompile Include="..\Classes\scenes\RegisterScene.cpp" />
     <ClCompile Include="..\Classes\singletons\Options.cpp" />
     <ClCompile Include="..\Classes\singletons\StringCache.cpp" />
+    <ClCompile Include="..\Classes\ui_wrappers\ButtonWrapper.cpp" />
+    <ClCompile Include="..\Classes\ui_wrappers\CheckBoxWrapper.cpp" />
     <ClCompile Include="..\Classes\ui_wrappers\LabelWrapper.cpp" />
     <ClCompile Include="..\Classes\ui_wrappers\TextBoxWrapper.cpp" />
     <ClCompile Include="main.cpp" />
@@ -155,9 +159,13 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\macros\AppMacros.h" />
+    <ClInclude Include="..\Classes\scenes\InitialScene.h" />
     <ClInclude Include="..\Classes\scenes\LoginScene.h" />
+    <ClInclude Include="..\Classes\scenes\RegisterScene.h" />
     <ClInclude Include="..\Classes\singletons\Options.h" />
     <ClInclude Include="..\Classes\singletons\StringCache.h" />
+    <ClInclude Include="..\Classes\ui_wrappers\ButtonWrapper.h" />
+    <ClInclude Include="..\Classes\ui_wrappers\CheckBoxWrapper.h" />
     <ClInclude Include="..\Classes\ui_wrappers\LabelWrapper.h" />
     <ClInclude Include="..\Classes\ui_wrappers\TextBoxWrapper.h" />
     <ClInclude Include="main.h" />
