@@ -145,6 +145,11 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\entities\Entity.cpp" />
+    <ClCompile Include="..\Classes\entities\GroundEntity.cpp" />
+    <ClCompile Include="..\Classes\entities\HazardEntity.cpp" />
+    <ClCompile Include="..\Classes\entities\PlayerEntity.cpp" />
+    <ClCompile Include="..\Classes\scenes\GameScene.cpp" />
     <ClCompile Include="..\Classes\scenes\InitialScene.cpp" />
     <ClCompile Include="..\Classes\scenes\LoginScene.cpp" />
     <ClCompile Include="..\Classes\scenes\RegisterScene.cpp" />
@@ -158,7 +163,12 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\entities\Entity.h" />
+    <ClInclude Include="..\Classes\entities\GroundEntity.h" />
+    <ClInclude Include="..\Classes\entities\HazardEntity.h" />
+    <ClInclude Include="..\Classes\entities\PlayerEntity.h" />
     <ClInclude Include="..\Classes\macros\AppMacros.h" />
+    <ClInclude Include="..\Classes\scenes\GameScene.h" />
     <ClInclude Include="..\Classes\scenes\InitialScene.h" />
     <ClInclude Include="..\Classes\scenes\LoginScene.h" />
     <ClInclude Include="..\Classes\scenes\RegisterScene.h" />

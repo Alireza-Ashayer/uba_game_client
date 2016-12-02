@@ -11,5 +11,8 @@
     "REGISTER" : "Register",
     "LOGIN" : "Login",
     "WELCOME" : "Welcome",
-    "CANCEL" : "Cancel"
+    "CANCEL" : "Cancel",
+    "PLAY" : "Play",
+    "EXIT" : "Exit",
+    "RESTART" : "Restart"
 }

@@ -2,6 +2,7 @@
 #include "ui_wrappers/LabelWrapper.h"
 #include "LoginScene.h"
 #include "RegisterScene.h"
+#include "GameScene.h"
 
 USING_NS_CC;
 USING_NS_CC_UI;
@@ -55,12 +56,12 @@ bool InitialScene::createUI()
 
 
 	//register button
-	auto registerButton = ButtonWrapper::createByKey("REGISTER", 24);
+	auto registerButton = ButtonWrapper::createByKey("SIGN_UP", 24);
 	if (registerButton)
 	{
 		registerButton->setName("register_button");
 		registerButton->addTouchEventListener(CC_CALLBACK_2(InitialScene::buttonCallback, this));
-		registerButton->setPosition(visibleSize / 2 + Size(-100, -50));
+		registerButton->setPosition(visibleSize / 2 + Size(-200, -50));
 		addChild(registerButton);
 	}
 
@@ -72,8 +73,20 @@ bool InitialScene::createUI()
 	{
 		loginButton->setName("login_button");
 		loginButton->addTouchEventListener(CC_CALLBACK_2(InitialScene::buttonCallback, this));
-		loginButton->setPosition(visibleSize / 2 + Size(100, -50));
+		loginButton->setPosition(visibleSize / 2 + Size(0, -50));
 		addChild(loginButton);
+	}
+
+
+
+	//play button
+	auto playButton = ButtonWrapper::createByKey("PLAY", 24);
+	if (playButton)
+	{
+		playButton->setName("play_button");
+		playButton->addTouchEventListener(CC_CALLBACK_2(InitialScene::buttonCallback, this));
+		playButton->setPosition(visibleSize / 2 + Size(200, -50));
+		addChild(playButton);
 	}
 
 	return true;
@@ -98,6 +111,14 @@ void uba::InitialScene::buttonCallback(cocos2d::Ref* pSender, cocos2d::ui::Butto
 		else if (name == "register_button")
 		{
 			auto scene = RegisterScene::createScene();
+			if (scene)
+			{
+				Director::getInstance()->pushScene(scene);
+			}
+		}
+		else if (name == "play_button")
+		{
+			auto scene = GameScene::createScene();
 			if (scene)
 			{
 				Director::getInstance()->pushScene(scene);
