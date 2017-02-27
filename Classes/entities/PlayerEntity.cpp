@@ -26,7 +26,7 @@ bool PlayerEntity::init(int index)
 	if (!Entity::init(index))
 		return false;
 
-	_sprite = cocos2d::Sprite::create("textures/player/walk/player_walk_0.png");
+	_sprite = cocos2d::Sprite::create("textures/player/player_walk_0.png");
 	if (_sprite)
 	{
 		_sprite->setPosition(_contentSize / 2 + cocos2d::Size(0, -5));
