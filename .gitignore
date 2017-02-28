@@ -156,4 +156,5 @@ tests/lua-empty-test/project/proj.tizen/res/
 tests/lua-tests/project/proj.tizen/res/
 
 !cocos2d/cocos/platform/ios/cocos2d-prefix.pch
+!proj.ios_mac/ios/Prefix.pch
 cocos2d/plugin/
