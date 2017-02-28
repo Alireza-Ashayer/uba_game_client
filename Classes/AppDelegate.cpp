@@ -5,6 +5,7 @@
 #include "macros/AppMacros.h"
 #include "singletons/Options.h"
 #include "singletons/StringCache.h"
+#include "singletons/Analytics.h"
 
 USING_NS_CC;
 USING_NS_UBA;
@@ -73,6 +74,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	{
 		return false;
 	}
+
+	Analytics::getInstance().loadCacheFromStorage();
 
 
 	//create first scene

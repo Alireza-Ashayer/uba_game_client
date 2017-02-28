@@ -41,7 +41,9 @@ private:
 	void addEndingPopup();
 
 	void buttonCallback(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType type);
+	void addSwipeAnalytics(cocos2d::Vec2 startPos, cocos2d::Vec2 endPos, int parameter);
 
+	int64_t _swipeStartTime;
 
 	cocos2d::Layer* _gameLayer;
 	cocos2d::Vec2 _touchStartPosition;
