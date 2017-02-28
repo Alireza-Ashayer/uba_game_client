@@ -127,8 +127,8 @@ project.properties
 *.iml
 
 # Ignore prebuilt libraries folder
-/external/*
-!/external/config.json
+cocos2d/external/*
+!cocos2d/external/config.json
 /templates/lua-template-runtime/runtime
 /v*-deps-*.zip
 /v*-lua-runtime-*.zip
@@ -157,4 +157,3 @@ tests/lua-tests/project/proj.tizen/res/
 
 
 cocos2d/plugin/
-cocos2d/external/
