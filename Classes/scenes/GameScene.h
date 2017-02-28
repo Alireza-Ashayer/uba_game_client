@@ -5,10 +5,11 @@
 
 #include "macros/AppMacros.h"
 #include "ui_wrappers/ButtonWrapper.h"
+#include "entities/Entity.h"
 
 NS_UBA_BEGIN
 
-class Entity;
+
 class PlayerEntity;
 class LabelWrapper;
 
