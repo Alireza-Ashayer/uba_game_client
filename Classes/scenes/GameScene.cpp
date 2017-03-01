@@ -5,6 +5,7 @@
 #include "entities/GroundEntity.h"
 #include "entities/PlayerEntity.h"
 #include "entities/HazardEntity.h"
+#include "singletons/Analytics.h"
 
 USING_NS_CC;
 USING_NS_CC_UI;
@@ -247,6 +248,7 @@ bool uba::GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_
 	if (_touchStartPosition.length() == 0)
 	{
 		_touchStartPosition = touch->getLocationInView();
+		_swipeStartTime = utils::getTimeInMilliseconds();
 		return true;
 	}
 
@@ -270,6 +272,11 @@ void uba::GameScene::onTouchCancelled(cocos2d::Touch *touch, cocos2d::Event *unu
 			_playerEntity->switchPlayerState(PlayerState::JUMP);
 		}
 
+		auto swipeTimeDelta = utils::getTimeInMilliseconds() - _swipeStartTime;
+		addSwipeAnalytics(_touchStartPosition, touch->getLocationInView(), swipeTimeDelta);
+
+		
+
 		_touchStartPosition = Vec2::ZERO;
 	}
 }
@@ -286,6 +293,9 @@ void uba::GameScene::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_
 		{
 			_playerEntity->switchPlayerState(PlayerState::JUMP);
 		}
+
+		auto swipeTimeDelta = utils::getTimeInMilliseconds() - _swipeStartTime;
+		addSwipeAnalytics(_touchStartPosition, touch->getLocationInView(), swipeTimeDelta);
 
 		_touchStartPosition = Vec2::ZERO;
 	}
@@ -330,4 +340,17 @@ void uba::GameScene::addEndingPopup()
 			layer->addChild(exitButton);
 		}
 	}
+}
+
+void uba::GameScene::addSwipeAnalytics(cocos2d::Vec2 startPos, cocos2d::Vec2 endPos, int parameter)
+{
+	std::string direction = "up";
+
+
+	AnalyticsData aData;
+	aData.category = "swipe";
+	aData.direction = "up";
+	aData.parameter = parameter;
+
+	Analytics::getInstance().addAnalyticsData(aData, true);
 }
