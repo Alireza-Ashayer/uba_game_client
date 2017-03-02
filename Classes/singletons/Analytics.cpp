@@ -9,8 +9,9 @@ USING_NS_CC;
 
 using namespace cocos2d::network;
 
-const int SEND_REQUEST_INTERVAL = 30;
+const int SEND_REQUEST_INTERVAL = 1;
 const std::string ANALYTICS_CACHE_PATH = "analytics.json";
+const std::string SERVER_URL = "localhost:51971/api/Activities";
 
 Analytics& Analytics::getInstance()
 {
@@ -136,7 +137,7 @@ void uba::Analytics::sendRequest(AnalyticsData* analyticsData)
 
 
 	HttpRequest* request = new (std::nothrow) HttpRequest();
-	request->setUrl("http://www.google.com");
+	request->setUrl(SERVER_URL);
 	request->setRequestType(HttpRequest::Type::POST);
 	request->setResponseCallback(CC_CALLBACK_2(Analytics::onHttpRequestCompleted, this));
 
