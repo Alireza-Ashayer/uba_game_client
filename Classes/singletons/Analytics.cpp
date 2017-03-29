@@ -11,7 +11,7 @@ using namespace cocos2d::network;
 
 const int SEND_REQUEST_INTERVAL = 1;
 const std::string ANALYTICS_CACHE_PATH = "analytics.json";
-const std::string SERVER_URL = "localhost:51971/api/Activities";
+const std::string SERVER_URL = "http://150.216.57.54/api/Activities";
 
 Analytics& Analytics::getInstance()
 {
@@ -220,6 +220,9 @@ void uba::Analytics::onHttpRequestCompleted(cocos2d::network::HttpClient* sender
 			auto analyticsData = static_cast<AnalyticsData*>(response->getHttpRequest()->getUserData());
 			auto id = analyticsData->id;
 			_queue.pop();
+
+			auto responseData = response->getResponseData();
+			auto responseString = std::string(responseData->begin(), responseData->end());
 
 
 			std::string fullPath = FileUtils::getInstance()->getWritablePath().append(ANALYTICS_CACHE_PATH.c_str());
