@@ -31,7 +31,6 @@ void uba::Analytics::loadCacheFromStorage()
 {
 	_queue.empty();
 
-	Director::getInstance()->getScheduler()->schedule(CC_CALLBACK_1(Analytics::oneSecondUpdate, this), this, 1, CC_REPEAT_FOREVER, 0, false, "analytics_cache_one_sec_update");
 
 
 	std::string fullPath = FileUtils::getInstance()->getWritablePath().append(ANALYTICS_CACHE_PATH.c_str());
@@ -75,6 +74,8 @@ void uba::Analytics::loadCacheFromStorage()
 	{
 		FileUtils::getInstance()->removeFile(fullPath);
 	}
+
+	Director::getInstance()->getScheduler()->schedule(CC_CALLBACK_1(Analytics::oneSecondUpdate, this), this, 1, CC_REPEAT_FOREVER, 0, false, "analytics_cache_one_sec_update");
 }
 
 
@@ -101,7 +102,7 @@ void uba::Analytics::addAnalyticsData(std::unique_ptr<AnalyticsData> data, bool 
 {
 	if (cache)
 	{
-		cacheAnalyticsData(data.get());
+		//cacheAnalyticsData(data.get());
 	}
 
 	_queue.push(std::move(data));
