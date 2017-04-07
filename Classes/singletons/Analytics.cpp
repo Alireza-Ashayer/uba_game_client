@@ -22,6 +22,7 @@ Analytics& Analytics::getInstance()
 
 ::Analytics::Analytics()
 	:_timer(SEND_REQUEST_INTERVAL)
+	, _sendingRequest(false)
 {
 
 }
@@ -31,7 +32,7 @@ void uba::Analytics::loadCacheFromStorage()
 {
 	_queue.empty();
 
-
+	Director::getInstance()->getScheduler()->schedule(CC_CALLBACK_1(Analytics::oneSecondUpdate, this), this, 1, CC_REPEAT_FOREVER, 0, false, "analytics_cache_one_sec_update");
 
 	std::string fullPath = FileUtils::getInstance()->getWritablePath().append(ANALYTICS_CACHE_PATH.c_str());
 	try
@@ -75,7 +76,6 @@ void uba::Analytics::loadCacheFromStorage()
 		FileUtils::getInstance()->removeFile(fullPath);
 	}
 
-	Director::getInstance()->getScheduler()->schedule(CC_CALLBACK_1(Analytics::oneSecondUpdate, this), this, 1, CC_REPEAT_FOREVER, 0, false, "analytics_cache_one_sec_update");
 }
 
 
@@ -118,7 +118,7 @@ void Analytics::oneSecondUpdate(float dt)
 		_timer += dt;
 	}
 
-	if (_timer >= SEND_REQUEST_INTERVAL && _queue.size() > 0)
+	if (_timer >= SEND_REQUEST_INTERVAL && _queue.size() > 0 && !_sendingRequest)
 	{
 		_timer = 0;
         auto obj = _queue.front().get();
@@ -135,6 +135,8 @@ void Analytics::oneSecondUpdate(float dt)
 
 void uba::Analytics::sendRequest(AnalyticsData* analyticsData)
 {
+	_sendingRequest = true;
+
 	rapidjson::Document doc;
 	auto dataObject = getAnalyticsDataJson(analyticsData, doc);
 
@@ -219,6 +221,8 @@ void uba::Analytics::onHttpRequestCompleted(cocos2d::network::HttpClient* sender
 {
 	try
 	{
+		_sendingRequest = false;
+
 		if (!response)
 		{
 			return;
@@ -231,6 +235,7 @@ void uba::Analytics::onHttpRequestCompleted(cocos2d::network::HttpClient* sender
             
             if(_queue.size() != 0)
                 _queue.pop();
+
 
 			auto responseData = response->getResponseData();
 			auto responseString = std::string(responseData->begin(), responseData->end());

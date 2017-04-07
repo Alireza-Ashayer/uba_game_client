@@ -45,6 +45,8 @@ private:
 	std::queue<std::unique_ptr<AnalyticsData>> _queue;
 
 	float _timer;
+
+	bool _sendingRequest;
 };
 
 NS_UBA_END
