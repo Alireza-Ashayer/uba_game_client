@@ -56,6 +56,7 @@
 		D025955C1E65E948003B0087 /* res in Resources */ = {isa = PBXBuildFile; fileRef = D02595561E65E948003B0087 /* res */; };
 		D025955D1E65E948003B0087 /* strings in Resources */ = {isa = PBXBuildFile; fileRef = D02595571E65E948003B0087 /* strings */; };
 		D025955E1E65E948003B0087 /* textures in Resources */ = {isa = PBXBuildFile; fileRef = D02595581E65E948003B0087 /* textures */; };
+		D066514B1E96B4FC0035710B /* Analytics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D06651491E96B4FC0035710B /* Analytics.cpp */; };
 		D07455531E65EF1900FE8A1A /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D074552F1E65EF1900FE8A1A /* AppDelegate.cpp */; };
 		D07455541E65EF1900FE8A1A /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07455321E65EF1900FE8A1A /* Entity.cpp */; };
 		D07455551E65EF1900FE8A1A /* GroundEntity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07455341E65EF1900FE8A1A /* GroundEntity.cpp */; };
@@ -170,6 +171,8 @@
 		D02595561E65E948003B0087 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; path = res; sourceTree = "<group>"; };
 		D02595571E65E948003B0087 /* strings */ = {isa = PBXFileReference; lastKnownFileType = folder; path = strings; sourceTree = "<group>"; };
 		D02595581E65E948003B0087 /* textures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = textures; sourceTree = "<group>"; };
+		D06651491E96B4FC0035710B /* Analytics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Analytics.cpp; path = singletons/Analytics.cpp; sourceTree = "<group>"; };
+		D066514A1E96B4FC0035710B /* Analytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Analytics.h; path = singletons/Analytics.h; sourceTree = "<group>"; };
 		D074552F1E65EF1900FE8A1A /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		D07455301E65EF1900FE8A1A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D07455321E65EF1900FE8A1A /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
@@ -345,6 +348,8 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D06651491E96B4FC0035710B /* Analytics.cpp */,
+				D066514A1E96B4FC0035710B /* Analytics.h */,
 				D074552F1E65EF1900FE8A1A /* AppDelegate.cpp */,
 				D07455301E65EF1900FE8A1A /* AppDelegate.h */,
 				D07455311E65EF1900FE8A1A /* entities */,
@@ -514,6 +519,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0500;
+				TargetAttributes = {
+					1D6058900D05DD3D006BFB54 = {
+						DevelopmentTeam = 5FU32NEM9J;
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "user_behavior_analytics" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -626,6 +636,7 @@
 				D07455601E65EF1900FE8A1A /* LabelWrapper.cpp in Sources */,
 				D07455611E65EF1900FE8A1A /* TextBoxWrapper.cpp in Sources */,
 				D074555E1E65EF1900FE8A1A /* ButtonWrapper.cpp in Sources */,
+				D066514B1E96B4FC0035710B /* Analytics.cpp in Sources */,
 				D074555F1E65EF1900FE8A1A /* CheckBoxWrapper.cpp in Sources */,
 				D07455581E65EF1900FE8A1A /* GameScene.cpp in Sources */,
 				D074555A1E65EF1900FE8A1A /* LoginScene.cpp in Sources */,
@@ -663,6 +674,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
+				DEVELOPMENT_TEAM = 5FU32NEM9J;
 				ENABLE_BITCODE = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -696,6 +708,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
+				DEVELOPMENT_TEAM = 5FU32NEM9J;
 				ENABLE_BITCODE = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

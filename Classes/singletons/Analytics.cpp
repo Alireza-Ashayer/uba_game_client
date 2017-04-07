@@ -9,9 +9,9 @@ USING_NS_CC;
 
 using namespace cocos2d::network;
 
-const int SEND_REQUEST_INTERVAL = 1;
+const int SEND_REQUEST_INTERVAL = 0;
 const std::string ANALYTICS_CACHE_PATH = "analytics.json";
-const std::string SERVER_URL = "http://150.216.57.54/api/Activities";
+const std::string SERVER_URL = "http://150.216.57.54:80/api/Activities";
 
 Analytics& Analytics::getInstance()
 {
@@ -121,7 +121,15 @@ void Analytics::oneSecondUpdate(float dt)
 	if (_timer >= SEND_REQUEST_INTERVAL && _queue.size() > 0)
 	{
 		_timer = 0;
-		sendRequest(_queue.front().get());
+        auto obj = _queue.front().get();
+        if (obj) {
+            sendRequest(_queue.front().get());
+        }
+        else
+        {
+            _queue.pop();
+        }
+		
 	}
 }
 
@@ -220,7 +228,9 @@ void uba::Analytics::onHttpRequestCompleted(cocos2d::network::HttpClient* sender
 		{
 			auto analyticsData = static_cast<AnalyticsData*>(response->getHttpRequest()->getUserData());
 			auto id = analyticsData->id;
-			_queue.pop();
+            
+            if(_queue.size() != 0)
+                _queue.pop();
 
 			auto responseData = response->getResponseData();
 			auto responseString = std::string(responseData->begin(), responseData->end());
@@ -293,7 +303,7 @@ std::unique_ptr<AnalyticsData> uba::Analytics::createAnalyticsData(const rapidjs
 	auto result = std::unique_ptr<AnalyticsData>(new AnalyticsData());
 
 
-	result->category = data["category"].GetString();
+	result->category = data["Category"].GetString();
 	result->direction = data["direction"].GetString();
 	result->parameter = data["parameter"].GetInt();
 	result->id = data["id"].GetInt();
@@ -310,7 +320,7 @@ rapidjson::Value uba::Analytics::getAnalyticsDataJson(AnalyticsData* analyticsDa
 	dataObject.SetObject();
 
 
-	dataObject.AddMember("category", rapidjson::StringRef(analyticsData->category.c_str(), analyticsData->category.length()), doc.GetAllocator());
+	dataObject.AddMember("Category", rapidjson::StringRef(analyticsData->category.c_str(), analyticsData->category.length()), doc.GetAllocator());
 	dataObject.AddMember("direction", rapidjson::StringRef(analyticsData->direction.c_str(), analyticsData->direction.length()), doc.GetAllocator());
 	dataObject.AddMember("parameter", analyticsData->parameter, doc.GetAllocator());
 	dataObject.AddMember("id", analyticsData->id, doc.GetAllocator());

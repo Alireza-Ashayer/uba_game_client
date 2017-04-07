@@ -263,7 +263,8 @@ void uba::GameScene::onTouchCancelled(cocos2d::Touch *touch, cocos2d::Event *unu
 {
 	if (_touchStartPosition.length() != 0)
 	{
-		if (std::abs(_touchStartPosition.y - touch->getLocationInView().y) > JUMP_SWIPE_TELORANCE)
+        auto distance =std::abs(_touchStartPosition.y - touch->getLocationInView().y);
+		if (distance > JUMP_SWIPE_TELORANCE)
 		{
 			_playerEntity->switchPlayerState(PlayerState::SLIDE);
 		}
@@ -272,9 +273,11 @@ void uba::GameScene::onTouchCancelled(cocos2d::Touch *touch, cocos2d::Event *unu
 			_playerEntity->switchPlayerState(PlayerState::JUMP);
 		}
 
-		auto swipeTimeDelta = utils::getTimeInMilliseconds() - _swipeStartTime;
-		addSwipeAnalytics(_touchStartPosition, touch->getLocationInView(), swipeTimeDelta);
-
+        
+        if (distance > 5) {
+            auto swipeTimeDelta = utils::getTimeInMilliseconds() - _swipeStartTime;
+            addSwipeAnalytics(_touchStartPosition, touch->getLocationInView(), swipeTimeDelta);
+        }
 		
 
 		_touchStartPosition = Vec2::ZERO;
@@ -285,7 +288,9 @@ void uba::GameScene::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_
 {
 	if (_touchStartPosition.length() != 0)
 	{
-		if (std::abs(_touchStartPosition.y - touch->getLocationInView().y) > JUMP_SWIPE_TELORANCE)
+        auto distance =std::abs(_touchStartPosition.y - touch->getLocationInView().y);
+        
+		if (distance > JUMP_SWIPE_TELORANCE)
 		{
 			_playerEntity->switchPlayerState(PlayerState::SLIDE);
 		}
@@ -294,9 +299,12 @@ void uba::GameScene::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_
 			_playerEntity->switchPlayerState(PlayerState::JUMP);
 		}
 
-		auto swipeTimeDelta = utils::getTimeInMilliseconds() - _swipeStartTime;
-		addSwipeAnalytics(_touchStartPosition, touch->getLocationInView(), swipeTimeDelta);
-
+        if(distance > 5)
+        {
+            auto swipeTimeDelta = utils::getTimeInMilliseconds() - _swipeStartTime;
+            addSwipeAnalytics(_touchStartPosition, touch->getLocationInView(), swipeTimeDelta);
+        }
+        
 		_touchStartPosition = Vec2::ZERO;
 	}
 
