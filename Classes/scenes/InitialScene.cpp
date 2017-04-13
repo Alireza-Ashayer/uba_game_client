@@ -4,6 +4,7 @@
 #include "RegisterScene.h"
 #include "GameScene.h"
 #include "singletons/StringCache.h"
+#include "singletons/User.h"
 
 USING_NS_CC;
 USING_NS_CC_UI;
@@ -68,28 +69,28 @@ bool InitialScene::createUI()
 	}
 
 
-	auto maleCheckBox = CheckBoxWrapper::createByKey("MALE", false);
-	if (maleCheckBox)
+	_maleCheckBox = CheckBoxWrapper::createByKey("MALE", false);
+	if (_maleCheckBox)
 	{
-		maleCheckBox->setName("male_checkbox");
-		maleCheckBox->setPosition(visibleSize / 2 + Size(-100, 50));
-		maleCheckBox->addEventListener(CC_CALLBACK_2(InitialScene::checkBoxEvent, this));
-		addChild(maleCheckBox);
+		_maleCheckBox->setName("male_checkbox");
+		_maleCheckBox->setPosition(visibleSize / 2 + Size(-100, 50));
+		_maleCheckBox->addEventListener(CC_CALLBACK_2(InitialScene::checkBoxEvent, this));
+		addChild(_maleCheckBox);
 	}
 
-	auto femaleCheckBox = CheckBoxWrapper::createByKey("FEMALE", false);
-	if (femaleCheckBox)
+	_femaleCheckBox = CheckBoxWrapper::createByKey("FEMALE", false);
+	if (_femaleCheckBox)
 	{
-		maleCheckBox->setName("female_checkbox");
-		femaleCheckBox->setPosition(visibleSize / 2 + Size(50, 50));
-		femaleCheckBox->addEventListener(CC_CALLBACK_2(InitialScene::checkBoxEvent, this));
-		addChild(femaleCheckBox);
+		_femaleCheckBox->setName("female_checkbox");
+		_femaleCheckBox->setPosition(visibleSize / 2 + Size(50, 50));
+		_femaleCheckBox->addEventListener(CC_CALLBACK_2(InitialScene::checkBoxEvent, this));
+		addChild(_femaleCheckBox);
 	}
 
-	if (maleCheckBox && femaleCheckBox)
+	if (_maleCheckBox && _femaleCheckBox)
 	{
-		maleCheckBox->setUserData(femaleCheckBox);
-		femaleCheckBox->setUserData(maleCheckBox);
+		_maleCheckBox->setUserData(_femaleCheckBox);
+		_femaleCheckBox->setUserData(_maleCheckBox);
 	}
 
 
@@ -140,6 +141,24 @@ void uba::InitialScene::buttonCallback(cocos2d::Ref* pSender, cocos2d::ui::Butto
 			}
 			else
 			{
+				auto username = _usernameField->getString();
+
+				std::string sex;
+				if (_maleCheckBox->isSelected())
+				{
+					sex = "male";
+				}
+				else if (_femaleCheckBox->isSelected())
+				{
+					sex = "female";
+				}
+				else
+				{
+					sex = "";
+				}
+
+				User::getInstance().init(username, sex);
+
 				auto scene = GameScene::createScene();
 				if (scene)
 				{

@@ -78,6 +78,9 @@
     <ClCompile Include="..\Classes\singletons\Analytics.cpp">
       <Filter>src\singletons</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\singletons\User.cpp">
+      <Filter>src\singletons</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -132,6 +135,9 @@
       <Filter>src\entities</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\singletons\Analytics.h">
+      <Filter>src\singletons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\singletons\User.h">
       <Filter>src\singletons</Filter>
     </ClInclude>
   </ItemGroup>

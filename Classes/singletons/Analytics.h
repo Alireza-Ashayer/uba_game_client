@@ -19,6 +19,8 @@ struct AnalyticsData
 	std::string category;
 	std::string direction;
 	int parameter;
+	std::string username;
+	std::string sex;
 };
 
 class Analytics

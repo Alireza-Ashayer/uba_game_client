@@ -24,6 +24,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
 				   ../../Classes/singletons/Analytics.cpp \
 				   ../../Classes/singletons/Options.cpp \
 				   ../../Classes/singletons/StringCache.cpp \
+				   ../../Classes/singletons/User.cpp \
 				   ../../Classes/ui_wrappers/ButtonWrapper.cpp \
 				   ../../Classes/ui_wrappers/CheckBoxWrapper.cpp \
 				   ../../Classes/ui_wrappers/LabelWrapper.cpp \

@@ -6,12 +6,13 @@
 #include "entities/PlayerEntity.h"
 #include "entities/HazardEntity.h"
 #include "singletons/Analytics.h"
+#include "singletons/User.h"
 
 USING_NS_CC;
 USING_NS_CC_UI;
 USING_NS_UBA;
 
-const int JUMP_SWIPE_TELORANCE = 5;
+const int SWIPE_TOLERANCE = 5;
 
 Scene* GameScene::createScene()
 {
@@ -264,11 +265,11 @@ void uba::GameScene::onTouchCancelled(cocos2d::Touch *touch, cocos2d::Event *unu
 	if (_touchStartPosition.length() != 0)
 	{
         auto distance = _touchStartPosition.y - touch->getLocationInView().y;
-		if (distance > JUMP_SWIPE_TELORANCE)
+		if (distance > SWIPE_TOLERANCE)
 		{
 			_playerEntity->switchPlayerState(PlayerState::JUMP);
 		}
-		else if (distance < JUMP_SWIPE_TELORANCE)
+		else if (distance < -SWIPE_TOLERANCE)
 		{
 			_playerEntity->switchPlayerState(PlayerState::SLIDE);
 		}
@@ -289,11 +290,11 @@ void uba::GameScene::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_
 	if (_touchStartPosition.length() != 0)
 	{
 		auto distance = _touchStartPosition.y - touch->getLocationInView().y;
-		if (distance > JUMP_SWIPE_TELORANCE)
+		if (distance > SWIPE_TOLERANCE)
 		{
 			_playerEntity->switchPlayerState(PlayerState::JUMP);
 		}
-		else if (distance < JUMP_SWIPE_TELORANCE)
+		else if (distance < -SWIPE_TOLERANCE)
 		{
 			_playerEntity->switchPlayerState(PlayerState::SLIDE);
 		}
@@ -359,6 +360,8 @@ void uba::GameScene::addSwipeAnalytics(cocos2d::Vec2 startPos, cocos2d::Vec2 end
 	aData.category = "swipe";
 	aData.direction = "up";
 	aData.parameter = parameter;
+	aData.username = User::getInstance().getUsername();
+	aData.sex = User::getInstance().getSex();
 
 	Analytics::getInstance().addAnalyticsData(aData, true);
 }

@@ -156,6 +156,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\singletons\Analytics.cpp" />
     <ClCompile Include="..\Classes\singletons\Options.cpp" />
     <ClCompile Include="..\Classes\singletons\StringCache.cpp" />
+    <ClCompile Include="..\Classes\singletons\User.cpp" />
     <ClCompile Include="..\Classes\ui_wrappers\ButtonWrapper.cpp" />
     <ClCompile Include="..\Classes\ui_wrappers\CheckBoxWrapper.cpp" />
     <ClCompile Include="..\Classes\ui_wrappers\LabelWrapper.cpp" />
@@ -176,6 +177,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\singletons\Analytics.h" />
     <ClInclude Include="..\Classes\singletons\Options.h" />
     <ClInclude Include="..\Classes\singletons\StringCache.h" />
+    <ClInclude Include="..\Classes\singletons\User.h" />
     <ClInclude Include="..\Classes\ui_wrappers\ButtonWrapper.h" />
     <ClInclude Include="..\Classes\ui_wrappers\CheckBoxWrapper.h" />
     <ClInclude Include="..\Classes\ui_wrappers\LabelWrapper.h" />

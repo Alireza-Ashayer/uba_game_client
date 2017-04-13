@@ -29,6 +29,8 @@ private:
 
 	TextBoxWrapper* _usernameField;
 	ButtonWrapper* _playButton;
+	CheckBoxWrapper* _maleCheckBox;
+	CheckBoxWrapper* _femaleCheckBox;
 };
 
 NS_UBA_END

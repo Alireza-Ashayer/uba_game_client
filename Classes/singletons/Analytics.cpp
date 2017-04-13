@@ -309,6 +309,8 @@ std::unique_ptr<AnalyticsData> uba::Analytics::createAnalyticsData(const rapidjs
 
 
 	result->category = data["Category"].GetString();
+	result->username = data["Username"].GetString();
+	result->sex = data["Sex"].GetString();
 	result->direction = data["direction"].GetString();
 	result->parameter = data["parameter"].GetInt();
 	result->id = data["id"].GetInt();
@@ -326,6 +328,8 @@ rapidjson::Value uba::Analytics::getAnalyticsDataJson(AnalyticsData* analyticsDa
 
 
 	dataObject.AddMember("Category", rapidjson::StringRef(analyticsData->category.c_str(), analyticsData->category.length()), doc.GetAllocator());
+	dataObject.AddMember("Username", rapidjson::StringRef(analyticsData->username.c_str(), analyticsData->username.length()), doc.GetAllocator());
+	dataObject.AddMember("Sex", rapidjson::StringRef(analyticsData->sex.c_str(), analyticsData->sex.length()), doc.GetAllocator());
 	dataObject.AddMember("direction", rapidjson::StringRef(analyticsData->direction.c_str(), analyticsData->direction.length()), doc.GetAllocator());
 	dataObject.AddMember("parameter", analyticsData->parameter, doc.GetAllocator());
 	dataObject.AddMember("id", analyticsData->id, doc.GetAllocator());
