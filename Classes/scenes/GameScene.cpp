@@ -11,7 +11,7 @@ USING_NS_CC;
 USING_NS_CC_UI;
 USING_NS_UBA;
 
-const int JUMP_SWIPE_TELORANCE = 50;
+const int JUMP_SWIPE_TELORANCE = 5;
 
 Scene* GameScene::createScene()
 {
@@ -263,18 +263,18 @@ void uba::GameScene::onTouchCancelled(cocos2d::Touch *touch, cocos2d::Event *unu
 {
 	if (_touchStartPosition.length() != 0)
 	{
-        auto distance =std::abs(_touchStartPosition.y - touch->getLocationInView().y);
+        auto distance = _touchStartPosition.y - touch->getLocationInView().y;
 		if (distance > JUMP_SWIPE_TELORANCE)
-		{
-			_playerEntity->switchPlayerState(PlayerState::SLIDE);
-		}
-		else
 		{
 			_playerEntity->switchPlayerState(PlayerState::JUMP);
 		}
+		else if (distance < JUMP_SWIPE_TELORANCE)
+		{
+			_playerEntity->switchPlayerState(PlayerState::SLIDE);
+		}
 
         
-        if (distance > 5) {
+        if (std::abs(distance) > 5) {
             auto swipeTimeDelta = utils::getTimeInMilliseconds() - _swipeStartTime;
             addSwipeAnalytics(_touchStartPosition, touch->getLocationInView(), swipeTimeDelta);
         }
@@ -288,23 +288,23 @@ void uba::GameScene::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_
 {
 	if (_touchStartPosition.length() != 0)
 	{
-        auto distance =std::abs(_touchStartPosition.y - touch->getLocationInView().y);
-        
+		auto distance = _touchStartPosition.y - touch->getLocationInView().y;
 		if (distance > JUMP_SWIPE_TELORANCE)
-		{
-			_playerEntity->switchPlayerState(PlayerState::SLIDE);
-		}
-		else
 		{
 			_playerEntity->switchPlayerState(PlayerState::JUMP);
 		}
+		else if (distance < JUMP_SWIPE_TELORANCE)
+		{
+			_playerEntity->switchPlayerState(PlayerState::SLIDE);
+		}
 
-        if(distance > 5)
-        {
-            auto swipeTimeDelta = utils::getTimeInMilliseconds() - _swipeStartTime;
-            addSwipeAnalytics(_touchStartPosition, touch->getLocationInView(), swipeTimeDelta);
-        }
-        
+
+		if (std::abs(distance) > 5) {
+			auto swipeTimeDelta = utils::getTimeInMilliseconds() - _swipeStartTime;
+			addSwipeAnalytics(_touchStartPosition, touch->getLocationInView(), swipeTimeDelta);
+		}
+
+
 		_touchStartPosition = Vec2::ZERO;
 	}
 

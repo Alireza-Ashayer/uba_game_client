@@ -68,9 +68,10 @@ void uba::PlayerEntity::update(float dt)
 		_vy -= 0.2f;
 		setPositionY(_position.y + _vy);
 		
-		if (_position.y < BLOCK_SIZE)
+		if (_position.y < BLOCK_SIZE - 2)
 		{
 			_playerState = PlayerState::WALK;
+			_position.y = BLOCK_SIZE;
 			_vy = 0;
 		}
 	}
