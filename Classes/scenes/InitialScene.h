@@ -6,6 +6,8 @@
 
 #include "macros/AppMacros.h"
 #include "ui_wrappers/ButtonWrapper.h"
+#include "ui_wrappers/TextBoxWrapper.h"
+#include "ui_wrappers/CheckBoxWrapper.h"
 
 NS_UBA_BEGIN
 
@@ -22,6 +24,11 @@ private:
 	bool createUI();
 
 	void buttonCallback(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType type);
+	void textFieldEvent(cocos2d::Ref *pSender, cocos2d::ui::TextField::EventType type);
+	void checkBoxEvent(cocos2d::Ref* pSender, cocos2d::ui::CheckBox::EventType type);
+
+	TextBoxWrapper* _usernameField;
+	ButtonWrapper* _playButton;
 };
 
 NS_UBA_END

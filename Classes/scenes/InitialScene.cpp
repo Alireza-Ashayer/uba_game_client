@@ -3,6 +3,7 @@
 #include "LoginScene.h"
 #include "RegisterScene.h"
 #include "GameScene.h"
+#include "singletons/StringCache.h"
 
 USING_NS_CC;
 USING_NS_CC_UI;
@@ -55,38 +56,52 @@ bool InitialScene::createUI()
 	}
 
 
-	//register button
-	auto registerButton = ButtonWrapper::createByKey("SIGN_UP", 24);
-	if (registerButton)
+	_usernameField = TextBoxWrapper::createByKey("USER_NAME", 24);
+	if (_usernameField)
 	{
-		registerButton->setName("register_button");
-		registerButton->addTouchEventListener(CC_CALLBACK_2(InitialScene::buttonCallback, this));
-		registerButton->setPosition(visibleSize / 2 + Size(-200, -50));
-		addChild(registerButton);
+		_usernameField->setName("username_textbox");
+		_usernameField->setPosition(visibleSize / 2 + Size(0, 150));
+		_usernameField->setMaxLength(24);
+		_usernameField->setMaxLengthEnabled(true);
+		_usernameField->addEventListener(CC_CALLBACK_2(InitialScene::textFieldEvent, this));
+		addChild(_usernameField);
 	}
 
 
-
-	//login button
-	auto loginButton = ButtonWrapper::createByKey("LOGIN", 24);
-	if (loginButton)
+	auto maleCheckBox = CheckBoxWrapper::createByKey("MALE", false);
+	if (maleCheckBox)
 	{
-		loginButton->setName("login_button");
-		loginButton->addTouchEventListener(CC_CALLBACK_2(InitialScene::buttonCallback, this));
-		loginButton->setPosition(visibleSize / 2 + Size(0, -50));
-		addChild(loginButton);
+		maleCheckBox->setName("male_checkbox");
+		maleCheckBox->setPosition(visibleSize / 2 + Size(-100, 50));
+		maleCheckBox->addEventListener(CC_CALLBACK_2(InitialScene::checkBoxEvent, this));
+		addChild(maleCheckBox);
 	}
 
+	auto femaleCheckBox = CheckBoxWrapper::createByKey("FEMALE", false);
+	if (femaleCheckBox)
+	{
+		maleCheckBox->setName("female_checkbox");
+		femaleCheckBox->setPosition(visibleSize / 2 + Size(50, 50));
+		femaleCheckBox->addEventListener(CC_CALLBACK_2(InitialScene::checkBoxEvent, this));
+		addChild(femaleCheckBox);
+	}
+
+	if (maleCheckBox && femaleCheckBox)
+	{
+		maleCheckBox->setUserData(femaleCheckBox);
+		femaleCheckBox->setUserData(maleCheckBox);
+	}
 
 
 	//play button
-	auto playButton = ButtonWrapper::createByKey("PLAY", 24);
-	if (playButton)
+	_playButton = ButtonWrapper::createByKey("PLAY", 24);
+	if (_playButton)
 	{
-		playButton->setName("play_button");
-		playButton->addTouchEventListener(CC_CALLBACK_2(InitialScene::buttonCallback, this));
-		playButton->setPosition(visibleSize / 2 + Size(200, -50));
-		addChild(playButton);
+		_playButton->setName("play_button");
+		_playButton->addTouchEventListener(CC_CALLBACK_2(InitialScene::buttonCallback, this));
+		_playButton->setPosition(visibleSize / 2 + Size(0, -50));
+		_playButton->setBright(false);
+		addChild(_playButton);
 	}
 
 	return true;
@@ -118,11 +133,91 @@ void uba::InitialScene::buttonCallback(cocos2d::Ref* pSender, cocos2d::ui::Butto
 		}
 		else if (name == "play_button")
 		{
-			auto scene = GameScene::createScene();
-			if (scene)
+			if (_usernameField->getString().size() < 1)
 			{
-				Director::getInstance()->pushScene(scene);
+				_usernameField->setPlaceHolder(StringCache::getInstance().getStringByKey("USER_NAME_ERROR"));
+				_usernameField->setPlaceHolderColor(Color4B::RED);
 			}
+			else
+			{
+				auto scene = GameScene::createScene();
+				if (scene)
+				{
+					Director::getInstance()->pushScene(scene);
+				}
+			}
+
 		}
 	}
+}
+
+
+void uba::InitialScene::textFieldEvent(cocos2d::Ref *pSender, cocos2d::ui::TextField::EventType type)
+{
+	//this callback will be used for analytics
+	auto node = static_cast<cocos2d::Node*>(pSender);
+	auto name = node->getName();
+
+	switch (type)
+	{
+	case cocos2d::ui::TextField::EventType::ATTACH_WITH_IME:
+		node->setColor(Color3B::RED);
+		break;
+	case cocos2d::ui::TextField::EventType::DETACH_WITH_IME:
+		node->setColor(Color3B::WHITE);
+		break;
+	case cocos2d::ui::TextField::EventType::INSERT_TEXT:
+		break;
+	case cocos2d::ui::TextField::EventType::DELETE_BACKWARD:
+		break;
+	default:
+		break;
+	}
+
+	auto textField = static_cast<TextBoxWrapper*>(pSender);
+	if (textField->getString().size() > 1)
+	{
+		_playButton->setBright(true);
+	}
+	else
+	{
+		_playButton->setBright(false);
+	}
+
+}
+
+void uba::InitialScene::checkBoxEvent(Ref* pSender, CheckBox::EventType type)
+{
+	auto senderCheckbox = static_cast<CheckBoxWrapper*>(pSender);
+
+	CheckBoxWrapper* otherCheckbox = nullptr;
+	if (senderCheckbox->getUserData() != nullptr)
+	{
+		otherCheckbox = static_cast<CheckBoxWrapper*>(senderCheckbox->getUserData());
+	}
+
+	switch (type)
+	{
+	case CheckBox::EventType::SELECTED:
+	{
+		if (otherCheckbox)
+		{
+			otherCheckbox->setSelected(false);
+		}
+	}
+	break;
+
+	case CheckBox::EventType::UNSELECTED:
+	{
+		if (otherCheckbox)
+		{
+			//otherCheckbox->setSelected(true);
+		}
+	}
+	break;
+
+	default:
+		break;
+	}
+
 }

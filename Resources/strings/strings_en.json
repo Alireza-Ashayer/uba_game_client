@@ -14,5 +14,7 @@
     "CANCEL" : "Cancel",
     "PLAY" : "Play",
     "EXIT" : "Exit",
-    "RESTART" : "Restart"
+    "RESTART" : "Restart",
+	"USER_NAME" : "Username",
+    "USER_NAME_ERROR" : "Please enter a username"
 }
