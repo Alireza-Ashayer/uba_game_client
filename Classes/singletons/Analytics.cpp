@@ -311,10 +311,30 @@ std::unique_ptr<AnalyticsData> uba::Analytics::createAnalyticsData(const rapidjs
 	result->category = data["Category"].GetString();
 	result->username = data["Username"].GetString();
 	result->sex = data["Sex"].GetString();
-	result->direction = data["direction"].GetString();
-	result->parameter = data["parameter"].GetInt();
-	result->id = data["id"].GetInt();
+	result->direction = data["Direction"].GetString();
+	result->id = data["Id"].GetInt();
 
+	result->totalLength = data["Total_length"].GetDouble();
+
+	result->maxSpeed = data["Maxima_speed"].GetDouble();
+	result->totalTime = data["Total_time"].GetDouble();
+	result->averageSpeed = data["Average_speed"].GetDouble();
+	result->width = data["Width"].GetDouble();
+	result->height = data["Height"].GetDouble();
+	result->maxAcc = data["Maxima_acceleration"].GetDouble();
+	result->avgAcc = data["Average_acceleration"].GetDouble();
+	result->vecAngle = data["Angle_start_to_end"].GetDouble();
+
+	/*
+	float maxSpeed;
+	float totalTime;
+	float averageSpeed;
+	float width;
+	float height;
+	float maxAcc;
+	float avgAcc;
+	float vecAngle;
+	*/
 
 
 	return result;
@@ -330,10 +350,18 @@ rapidjson::Value uba::Analytics::getAnalyticsDataJson(AnalyticsData* analyticsDa
 	dataObject.AddMember("Category", rapidjson::StringRef(analyticsData->category.c_str(), analyticsData->category.length()), doc.GetAllocator());
 	dataObject.AddMember("Username", rapidjson::StringRef(analyticsData->username.c_str(), analyticsData->username.length()), doc.GetAllocator());
 	dataObject.AddMember("Sex", rapidjson::StringRef(analyticsData->sex.c_str(), analyticsData->sex.length()), doc.GetAllocator());
-	dataObject.AddMember("direction", rapidjson::StringRef(analyticsData->direction.c_str(), analyticsData->direction.length()), doc.GetAllocator());
-	dataObject.AddMember("parameter", analyticsData->parameter, doc.GetAllocator());
-	dataObject.AddMember("id", analyticsData->id, doc.GetAllocator());
+	dataObject.AddMember("Direction", rapidjson::StringRef(analyticsData->direction.c_str(), analyticsData->direction.length()), doc.GetAllocator());
+	dataObject.AddMember("Id", analyticsData->id, doc.GetAllocator());
 
+	dataObject.AddMember("Total_length", analyticsData->totalLength, doc.GetAllocator());
+	dataObject.AddMember("Maxima_speed", analyticsData->maxSpeed, doc.GetAllocator());
+	dataObject.AddMember("Total_time", analyticsData->totalTime, doc.GetAllocator());
+	dataObject.AddMember("Average_speed", analyticsData->averageSpeed, doc.GetAllocator());
+	dataObject.AddMember("Width", analyticsData->width, doc.GetAllocator());
+	dataObject.AddMember("Height", analyticsData->height, doc.GetAllocator());
+	dataObject.AddMember("Maxima_acceleration", analyticsData->maxAcc, doc.GetAllocator());
+	dataObject.AddMember("Average_acceleration", analyticsData->avgAcc, doc.GetAllocator());
+	dataObject.AddMember("Angle_start_to_end", analyticsData->vecAngle, doc.GetAllocator());
 
 	return dataObject;
 }

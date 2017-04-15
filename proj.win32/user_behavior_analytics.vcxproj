@@ -149,6 +149,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\entities\GroundEntity.cpp" />
     <ClCompile Include="..\Classes\entities\HazardEntity.cpp" />
     <ClCompile Include="..\Classes\entities\PlayerEntity.cpp" />
+    <ClCompile Include="..\Classes\helpers\SwipeAnalyticsHelper.cpp" />
     <ClCompile Include="..\Classes\scenes\GameScene.cpp" />
     <ClCompile Include="..\Classes\scenes\InitialScene.cpp" />
     <ClCompile Include="..\Classes\scenes\LoginScene.cpp" />
@@ -169,6 +170,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\entities\GroundEntity.h" />
     <ClInclude Include="..\Classes\entities\HazardEntity.h" />
     <ClInclude Include="..\Classes\entities\PlayerEntity.h" />
+    <ClInclude Include="..\Classes\helpers\SwipeAnalyticsHelper.h" />
     <ClInclude Include="..\Classes\macros\AppMacros.h" />
     <ClInclude Include="..\Classes\scenes\GameScene.h" />
     <ClInclude Include="..\Classes\scenes\InitialScene.h" />

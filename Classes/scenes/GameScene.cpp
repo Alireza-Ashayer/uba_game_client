@@ -7,6 +7,7 @@
 #include "entities/HazardEntity.h"
 #include "singletons/Analytics.h"
 #include "singletons/User.h"
+#include "helpers/SwipeAnalyticsHelper.h"
 
 USING_NS_CC;
 USING_NS_CC_UI;
@@ -250,6 +251,9 @@ bool uba::GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_
 	{
 		_touchStartPosition = touch->getLocationInView();
 		_swipeStartTime = utils::getTimeInMilliseconds();
+
+		_currentSwipeData.clear();
+
 		return true;
 	}
 
@@ -258,57 +262,20 @@ bool uba::GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_
 
 void uba::GameScene::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
+	auto record = std::pair<int64_t, cocos2d::Vec2>();
+	record.first = utils::getTimeInMilliseconds();
+	record.second = touch->getLocation();
+	_currentSwipeData.push_back(record);
 }
 
 void uba::GameScene::onTouchCancelled(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
-	if (_touchStartPosition.length() != 0)
-	{
-        auto distance = _touchStartPosition.y - touch->getLocationInView().y;
-		if (distance > SWIPE_TOLERANCE)
-		{
-			_playerEntity->switchPlayerState(PlayerState::JUMP);
-		}
-		else if (distance < -SWIPE_TOLERANCE)
-		{
-			_playerEntity->switchPlayerState(PlayerState::SLIDE);
-		}
-
-        
-        if (std::abs(distance) > 5) {
-            auto swipeTimeDelta = utils::getTimeInMilliseconds() - _swipeStartTime;
-            addSwipeAnalytics(_touchStartPosition, touch->getLocationInView(), swipeTimeDelta);
-        }
-		
-
-		_touchStartPosition = Vec2::ZERO;
-	}
+	touchEndCallback(touch, unused_event);
 }
 
 void uba::GameScene::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
-	if (_touchStartPosition.length() != 0)
-	{
-		auto distance = _touchStartPosition.y - touch->getLocationInView().y;
-		if (distance > SWIPE_TOLERANCE)
-		{
-			_playerEntity->switchPlayerState(PlayerState::JUMP);
-		}
-		else if (distance < -SWIPE_TOLERANCE)
-		{
-			_playerEntity->switchPlayerState(PlayerState::SLIDE);
-		}
-
-
-		if (std::abs(distance) > 5) {
-			auto swipeTimeDelta = utils::getTimeInMilliseconds() - _swipeStartTime;
-			addSwipeAnalytics(_touchStartPosition, touch->getLocationInView(), swipeTimeDelta);
-		}
-
-
-		_touchStartPosition = Vec2::ZERO;
-	}
-
+	touchEndCallback(touch, unused_event);
 }
 
 void uba::GameScene::addHazard()
@@ -351,17 +318,49 @@ void uba::GameScene::addEndingPopup()
 	}
 }
 
-void uba::GameScene::addSwipeAnalytics(cocos2d::Vec2 startPos, cocos2d::Vec2 endPos, int parameter)
+void uba::GameScene::touchEndCallback(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
-	std::string direction = "up";
+	if (_touchStartPosition.length() != 0)
+	{
+		bool accepted = false;
+		auto distance = _touchStartPosition.y - touch->getLocationInView().y;
+		if (distance > SWIPE_TOLERANCE)
+		{
+			_playerEntity->switchPlayerState(PlayerState::JUMP);
+			accepted = true;
+
+			auto record = std::pair<int64_t, cocos2d::Vec2>();
+			record.first = utils::getTimeInMilliseconds();
+			record.second = touch->getLocation();
+			_currentSwipeData.push_back(record);
+
+			addSwipeAnalytics(true);
+		}
+		else if (distance < -SWIPE_TOLERANCE)
+		{
+			_playerEntity->switchPlayerState(PlayerState::SLIDE);
+			accepted = true;
+
+			auto record = std::pair<int64_t, cocos2d::Vec2>();
+			record.first = utils::getTimeInMilliseconds();
+			record.second = touch->getLocation();
+			_currentSwipeData.push_back(record);
+
+			addSwipeAnalytics(false);
+		}
+
+		_touchStartPosition = Vec2::ZERO;
+	}
+}
 
 
-	AnalyticsData aData;
-	aData.category = "swipe";
-	aData.direction = "up";
-	aData.parameter = parameter;
-	aData.username = User::getInstance().getUsername();
-	aData.sex = User::getInstance().getSex();
 
-	Analytics::getInstance().addAnalyticsData(aData, true);
+void uba::GameScene::addSwipeAnalytics(bool isUp)
+{
+	SwipeAnalyticsHelper helper;
+	if (helper.init(_currentSwipeData))
+	{
+		AnalyticsData aData = helper.getAnalyticsData();
+		Analytics::getInstance().addAnalyticsData(aData, true);
+	}
 }

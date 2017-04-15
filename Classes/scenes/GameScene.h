@@ -42,7 +42,9 @@ private:
 	void addEndingPopup();
 
 	void buttonCallback(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType type);
-	void addSwipeAnalytics(cocos2d::Vec2 startPos, cocos2d::Vec2 endPos, int parameter);
+	void addSwipeAnalytics(bool isUp);
+	void touchEndCallback(cocos2d::Touch *touch, cocos2d::Event *unused_event);
+
 
 	int64_t _swipeStartTime;
 
@@ -59,6 +61,8 @@ private:
 	int _scoreInt;
 	int _lastAddPosition;
 	int _screenBlockCountHorizontal;
+
+	std::vector<std::pair<int64_t, cocos2d::Vec2>> _currentSwipeData;
 
 };
 

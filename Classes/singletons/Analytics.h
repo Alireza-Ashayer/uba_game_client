@@ -18,9 +18,17 @@ struct AnalyticsData
 	int id;
 	std::string category;
 	std::string direction;
-	int parameter;
 	std::string username;
 	std::string sex;
+	float totalLength;
+	float maxSpeed;
+	float totalTime;
+	float averageSpeed;
+	float width;
+	float height;
+	float maxAcc;
+	float avgAcc;
+	float vecAngle;
 };
 
 class Analytics
