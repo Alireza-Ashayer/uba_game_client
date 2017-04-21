@@ -67,6 +67,14 @@ bool GameScene::init()
 
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, this);
 
+
+	Device::setAccelerometerEnabled(true);
+	Device::setAccelerometerInterval(0.0);
+
+	auto accListener = EventListenerAcceleration::create(CC_CALLBACK_2(GameScene::accEventCallback, this));
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(accListener, this);
+
+
     return true;
 }
 
@@ -253,6 +261,7 @@ bool uba::GameScene::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_
 		_swipeStartTime = utils::getTimeInMilliseconds();
 
 		_currentSwipeData.clear();
+		_accs.clear();
 
 		return true;
 	}
@@ -333,6 +342,7 @@ void uba::GameScene::touchEndCallback(cocos2d::Touch *touch, cocos2d::Event *unu
 			record.first = utils::getTimeInMilliseconds();
 			record.second = touch->getLocation();
 			_currentSwipeData.push_back(record);
+			_accs.push_back(_currentAcc);
 
 			addSwipeAnalytics(true);
 		}
@@ -345,6 +355,7 @@ void uba::GameScene::touchEndCallback(cocos2d::Touch *touch, cocos2d::Event *unu
 			record.first = utils::getTimeInMilliseconds();
 			record.second = touch->getLocation();
 			_currentSwipeData.push_back(record);
+			_accs.push_back(_currentAcc);
 
 			addSwipeAnalytics(false);
 		}
@@ -360,7 +371,13 @@ void uba::GameScene::addSwipeAnalytics(bool isUp)
 	SwipeAnalyticsHelper helper;
 	if (helper.init(_currentSwipeData))
 	{
+		helper.initAccData(_accs);
 		AnalyticsData aData = helper.getAnalyticsData();
 		Analytics::getInstance().addAnalyticsData(aData, true);
 	}
+}
+
+void uba::GameScene::accEventCallback(cocos2d::Acceleration *accData, cocos2d::Event *unused_event)
+{
+	_currentAcc = Vec3(accData->x, accData->y, accData->z);
 }

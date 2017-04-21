@@ -321,9 +321,26 @@ std::unique_ptr<AnalyticsData> uba::Analytics::createAnalyticsData(const rapidjs
 	result->averageSpeed = data["Average_speed"].GetDouble();
 	result->width = data["Width"].GetDouble();
 	result->height = data["Height"].GetDouble();
-	result->maxAcc = data["Maxima_acceleration"].GetDouble();
-	result->avgAcc = data["Average_acceleration"].GetDouble();
+	result->maxAccel = data["Maxima_acceleration"].GetDouble();
+	result->avgAccel = data["Average_acceleration"].GetDouble();
 	result->vecAngle = data["Angle_start_to_end"].GetDouble();
+
+
+	result->startAccX = data["Starting_acceleration_x"].GetDouble();
+	result->startAccY = data["Starting_acceleration_y"].GetDouble();
+	result->startAccZ = data["Starting_acceleration_z"].GetDouble();
+
+	result->startAccVX = data["Starting_acceleration_vx"].GetDouble();
+	result->startAccVY = data["Starting_acceleration_vy"].GetDouble();
+	result->startAccVZ = data["Starting_acceleration_vz"].GetDouble();
+
+	result->endAccX = data["Ending_acceleration_x"].GetDouble();
+	result->endAccY = data["Ending_acceleration_y"].GetDouble();
+	result->endAccZ = data["Ending_acceleration_z"].GetDouble();
+
+	result->endAccVX = data["Ending_acceleration_vx"].GetDouble();
+	result->endAccVY = data["Ending_acceleration_vy"].GetDouble();
+	result->endAccVZ = data["Ending_acceleration_vz"].GetDouble();
 
 	/*
 	float maxSpeed;
@@ -359,9 +376,23 @@ rapidjson::Value uba::Analytics::getAnalyticsDataJson(AnalyticsData* analyticsDa
 	dataObject.AddMember("Average_speed", analyticsData->averageSpeed, doc.GetAllocator());
 	dataObject.AddMember("Width", analyticsData->width, doc.GetAllocator());
 	dataObject.AddMember("Height", analyticsData->height, doc.GetAllocator());
-	dataObject.AddMember("Maxima_acceleration", analyticsData->maxAcc, doc.GetAllocator());
-	dataObject.AddMember("Average_acceleration", analyticsData->avgAcc, doc.GetAllocator());
+	dataObject.AddMember("Maxima_acceleration", analyticsData->maxAccel, doc.GetAllocator());
+	dataObject.AddMember("Average_acceleration", analyticsData->avgAccel, doc.GetAllocator());
 	dataObject.AddMember("Angle_start_to_end", analyticsData->vecAngle, doc.GetAllocator());
+
+	dataObject.AddMember("Starting_acceleration_x", analyticsData->startAccX, doc.GetAllocator());
+	dataObject.AddMember("Starting_acceleration_y", analyticsData->startAccY, doc.GetAllocator());
+	dataObject.AddMember("Starting_acceleration_z", analyticsData->startAccZ, doc.GetAllocator());
+	dataObject.AddMember("Starting_acceleration_vx", analyticsData->startAccVX, doc.GetAllocator());
+	dataObject.AddMember("Starting_acceleration_vy", analyticsData->startAccVY, doc.GetAllocator());
+	dataObject.AddMember("Starting_acceleration_vz", analyticsData->startAccVZ, doc.GetAllocator());
+
+	dataObject.AddMember("Ending_acceleration_x", analyticsData->endAccX, doc.GetAllocator());
+	dataObject.AddMember("Ending_acceleration_y", analyticsData->endAccY, doc.GetAllocator());
+	dataObject.AddMember("Ending_acceleration_z", analyticsData->endAccZ, doc.GetAllocator());
+	dataObject.AddMember("Ending_acceleration_vx", analyticsData->endAccVX, doc.GetAllocator());
+	dataObject.AddMember("Ending_acceleration_vy", analyticsData->endAccVY, doc.GetAllocator());
+	dataObject.AddMember("Ending_acceleration_vz", analyticsData->endAccVZ, doc.GetAllocator());
 
 	return dataObject;
 }

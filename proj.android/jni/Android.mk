@@ -29,6 +29,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
 				   ../../Classes/ui_wrappers/CheckBoxWrapper.cpp \
 				   ../../Classes/ui_wrappers/LabelWrapper.cpp \
 				   ../../Classes/ui_wrappers/TextBoxWrapper.cpp \
+				   ../../Classes/helpers/SwipeAnalyticsHelper.cpp \
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes
 

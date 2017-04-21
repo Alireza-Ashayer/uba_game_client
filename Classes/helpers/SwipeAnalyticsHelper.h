@@ -6,6 +6,7 @@
 
 #include <string>
 #include "math/Vec2.h"
+#include "math/Vec3.h"
 
 NS_UBA_BEGIN
 
@@ -15,6 +16,7 @@ public:
 	SwipeAnalyticsHelper();
 
 	bool init(std::vector<std::pair<int64_t, cocos2d::Vec2>> input);
+	bool initAccData(std::vector<cocos2d::Vec3> input);
 
 	AnalyticsData getAnalyticsData() const;
 
@@ -30,12 +32,15 @@ private:
 	float getAverageSpeed() const;
 	float getVecAngle() const;
 	std::vector<cocos2d::Vec2> getSpeedVector() const;
-	std::vector<cocos2d::Vec2> getAccVector() const;
-	float getMaxAcc() const;
-	float getAvgAcc() const;
+	std::vector<cocos2d::Vec2> getAccelVector() const;
+	float getMaxAccel() const;
+	float getAvgAccel() const;
+	float getAccPos(cocos2d::Vec3 axis, bool starting) const;
+	float getAccVel(cocos2d::Vec3 axis, bool starting) const;
 
 	std::vector<int64_t> _timeStamps;
 	std::vector<cocos2d::Vec2> _positions;
+	std::vector <cocos2d::Vec3> _accs;
 
 	bool _isUp;
 };

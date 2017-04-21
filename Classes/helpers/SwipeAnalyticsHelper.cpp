@@ -3,6 +3,7 @@
 #include <limits>
 
 USING_NS_UBA;
+USING_NS_CC;
 
 
 uba::SwipeAnalyticsHelper::SwipeAnalyticsHelper()
@@ -59,8 +60,26 @@ uba::AnalyticsData uba::SwipeAnalyticsHelper::getAnalyticsData() const
 	result.maxSpeed = getMaxSpeed();
 	result.averageSpeed = getAverageSpeed();
 	result.vecAngle = getVecAngle();
-	result.maxAcc = getMaxAcc();
-	result.avgAcc = getAvgAcc();
+	result.maxAccel = getMaxAccel();
+	result.avgAccel = getAvgAccel();
+
+	result.startAccX = getAccPos(Vec3::UNIT_X, true);
+	result.startAccY = getAccPos(Vec3::UNIT_Y, true);
+	result.startAccZ = getAccPos(Vec3::UNIT_Z, true);
+
+	result.endAccX = getAccPos(Vec3::UNIT_X, false);
+	result.endAccY = getAccPos(Vec3::UNIT_Y, false);
+	result.endAccZ = getAccPos(Vec3::UNIT_Z, false);
+
+
+	result.startAccVX = getAccVel(Vec3::UNIT_X, true);
+	result.startAccVY = getAccVel(Vec3::UNIT_Y, true);
+	result.startAccVZ = getAccVel(Vec3::UNIT_Z, true);
+
+	result.endAccVX = getAccVel(Vec3::UNIT_X, false);
+	result.endAccVY = getAccVel(Vec3::UNIT_Y, false);
+	result.endAccVZ = getAccVel(Vec3::UNIT_Z, false);
+
 
 	return result;
 }
@@ -223,7 +242,7 @@ std::vector<cocos2d::Vec2> uba::SwipeAnalyticsHelper::getSpeedVector() const
 	return result;
 }
 
-std::vector<cocos2d::Vec2> uba::SwipeAnalyticsHelper::getAccVector() const
+std::vector<cocos2d::Vec2> uba::SwipeAnalyticsHelper::getAccelVector() const
 {
 	std::vector<cocos2d::Vec2> result;
 	auto speedVector = getSpeedVector();
@@ -244,11 +263,11 @@ std::vector<cocos2d::Vec2> uba::SwipeAnalyticsHelper::getAccVector() const
 	return result;
 }
 
-float uba::SwipeAnalyticsHelper::getMaxAcc() const
+float uba::SwipeAnalyticsHelper::getMaxAccel() const
 {
 	float maxAcc = std::numeric_limits<float>::min();
 
-	auto accVec = getAccVector();
+	auto accVec = getAccelVector();
 
 	for (unsigned int i = 0; i < accVec.size(); i++)
 	{
@@ -262,12 +281,12 @@ float uba::SwipeAnalyticsHelper::getMaxAcc() const
 	return maxAcc;
 }
 
-float uba::SwipeAnalyticsHelper::getAvgAcc() const
+float uba::SwipeAnalyticsHelper::getAvgAccel() const
 {
 	float totalAcc = 0;
 	int count = 0;
 
-	auto accVec = getAccVector();
+	auto accVec = getAccelVector();
 
 	for (unsigned int i = 0; i < accVec.size(); i++)
 	{
@@ -285,5 +304,99 @@ float uba::SwipeAnalyticsHelper::getAvgAcc() const
 	}
 
 	return totalAcc / count;
+}
+
+bool uba::SwipeAnalyticsHelper::initAccData(std::vector<cocos2d::Vec3> input)
+{
+	_accs.clear();
+	_accs = std::vector<cocos2d::Vec3>(input);
+
+	return true;
+}
+
+float uba::SwipeAnalyticsHelper::getAccPos(cocos2d::Vec3 axis, bool starting) const
+{
+	if (_accs.size() < 1)
+	{
+		return 0;
+	}
+
+	auto selected = Vec3::ZERO;
+	if (starting)
+	{
+		selected = _accs.at(0);
+	}
+	else
+	{
+		selected = _accs.at(_accs.size() - 1);
+	}
+
+	if (axis == Vec3::UNIT_X)
+	{
+		return selected.x;
+	}
+	else if (axis == Vec3::UNIT_Y)
+	{
+		return selected.y;
+	}
+	else if (axis == Vec3::UNIT_Z)
+	{
+		return selected.z;
+	}
+
+	return 0;
+}
+
+float uba::SwipeAnalyticsHelper::getAccVel(cocos2d::Vec3 axis, bool starting) const
+{
+	if (_accs.size() < 2 || _timeStamps.size() < 2)
+	{
+		return 0;
+	}
+
+	int64_t t1 = 0;
+	int64_t t2 = 0;
+	
+
+	auto x2 = Vec3::ZERO;
+	auto x1 = Vec3::ZERO;
+
+	if (starting)
+	{
+		x1 = _accs[0];
+		x2 = _accs[1];
+
+		t1 = _timeStamps[0];
+		t2 = _timeStamps[1];
+	}
+	else
+	{
+		x1 = _accs.at(_accs.size() - 2);
+		x2 = _accs.at(_accs.size() - 1);
+
+		t1 = _timeStamps.at(_accs.size() - 2);
+		t2 = _timeStamps.at(_accs.size() - 1);
+	}
+
+	auto dx = x2 - x1;
+	float dt = t2 - t1;
+
+	auto velocity = dx / dt;
+
+
+	if (axis == Vec3::UNIT_X)
+	{
+		return velocity.x;
+	}
+	else if (axis == Vec3::UNIT_Y)
+	{
+		return velocity.y;
+	}
+	else if (axis == Vec3::UNIT_Z)
+	{
+		return velocity.z;
+	}
+
+	return 0;
 }
 

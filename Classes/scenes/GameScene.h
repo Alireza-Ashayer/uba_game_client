@@ -44,6 +44,7 @@ private:
 	void buttonCallback(cocos2d::Ref* pSender, cocos2d::ui::Button::TouchEventType type);
 	void addSwipeAnalytics(bool isUp);
 	void touchEndCallback(cocos2d::Touch *touch, cocos2d::Event *unused_event);
+	void accEventCallback(cocos2d::Acceleration *accData, cocos2d::Event *unused_event);
 
 
 	int64_t _swipeStartTime;
@@ -64,6 +65,8 @@ private:
 
 	std::vector<std::pair<int64_t, cocos2d::Vec2>> _currentSwipeData;
 
+	cocos2d::Vec3 _currentAcc;
+	std::vector<cocos2d::Vec3> _accs;
 };
 
 NS_UBA_END

@@ -26,9 +26,21 @@ struct AnalyticsData
 	float averageSpeed;
 	float width;
 	float height;
-	float maxAcc;
-	float avgAcc;
+	float maxAccel;
+	float avgAccel;
 	float vecAngle;
+	float startAccX;
+	float startAccY;
+	float startAccZ;
+	float startAccVX;
+	float startAccVY;
+	float startAccVZ;
+	float endAccX;
+	float endAccY;
+	float endAccZ;
+	float endAccVX;
+	float endAccVY;
+	float endAccVZ;
 };
 
 class Analytics
