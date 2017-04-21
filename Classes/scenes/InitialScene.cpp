@@ -51,7 +51,7 @@ bool InitialScene::createUI()
 	auto welcomeLabel = LabelWrapper::createByKey("WELCOME", 36);
 	if (welcomeLabel)
 	{
-		welcomeLabel->setPosition(visibleSize / 2 + Size(0, 250));
+		welcomeLabel->setPosition(visibleSize / 2 + Size(0, 150));
 		welcomeLabel->setTextColor(Color4B::BLACK);
 		addChild(welcomeLabel);
 	}
@@ -61,7 +61,7 @@ bool InitialScene::createUI()
 	if (_usernameField)
 	{
 		_usernameField->setName("username_textbox");
-		_usernameField->setPosition(visibleSize / 2 + Size(0, 150));
+		_usernameField->setPosition(visibleSize / 2 + Size(0, 50));
 		_usernameField->setMaxLength(24);
 		_usernameField->setMaxLengthEnabled(true);
 		_usernameField->addEventListener(CC_CALLBACK_2(InitialScene::textFieldEvent, this));
@@ -73,7 +73,7 @@ bool InitialScene::createUI()
 	if (_maleCheckBox)
 	{
 		_maleCheckBox->setName("male_checkbox");
-		_maleCheckBox->setPosition(visibleSize / 2 + Size(-100, 50));
+		_maleCheckBox->setPosition(visibleSize / 2 + Size(-100, -50));
 		_maleCheckBox->addEventListener(CC_CALLBACK_2(InitialScene::checkBoxEvent, this));
 		addChild(_maleCheckBox);
 	}
@@ -82,7 +82,7 @@ bool InitialScene::createUI()
 	if (_femaleCheckBox)
 	{
 		_femaleCheckBox->setName("female_checkbox");
-		_femaleCheckBox->setPosition(visibleSize / 2 + Size(50, 50));
+		_femaleCheckBox->setPosition(visibleSize / 2 + Size(50, -50));
 		_femaleCheckBox->addEventListener(CC_CALLBACK_2(InitialScene::checkBoxEvent, this));
 		addChild(_femaleCheckBox);
 	}
@@ -100,7 +100,7 @@ bool InitialScene::createUI()
 	{
 		_playButton->setName("play_button");
 		_playButton->addTouchEventListener(CC_CALLBACK_2(InitialScene::buttonCallback, this));
-		_playButton->setPosition(visibleSize / 2 + Size(0, -50));
+		_playButton->setPosition(visibleSize / 2 + Size(0, -150));
 		_playButton->setBright(false);
 		addChild(_playButton);
 	}

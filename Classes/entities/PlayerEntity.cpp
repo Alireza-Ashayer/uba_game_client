@@ -103,7 +103,7 @@ void uba::PlayerEntity::update(float dt)
 		else if (_slideTimer >= 0.0f)
 		{
 			_slideTimer += dt;
-			if (_slideTimer >= 0.5f)
+			if (_slideTimer >= 0.4f)
 			{
 				_slideTimer = -2;
 			}

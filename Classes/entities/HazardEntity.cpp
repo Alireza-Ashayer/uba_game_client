@@ -1,6 +1,7 @@
 #include "HazardEntity.h"
 
 #include "2d/CCSprite.h"
+#include "base/ccRandom.h"
 
 USING_NS_UBA;
 
@@ -32,7 +33,7 @@ bool HazardEntity::init(int index)
 	}
 
 
-	auto r = rand() % 3;
+	auto r = cocos2d::RandomHelper::random_int(0, 2);
 
 	if (r == 0)
 	{

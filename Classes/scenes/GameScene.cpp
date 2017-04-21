@@ -28,7 +28,7 @@ Scene* GameScene::createScene()
 
 
 uba::GameScene::GameScene()
-	: _gameSpeed(3.5f)
+	: _gameSpeed(4.5f)
 	, _lastAddPosition(0)
 	, _screenBlockCountHorizontal(0)
 	, _playerEntity(nullptr)
@@ -118,7 +118,7 @@ bool uba::GameScene::createGameLayer()
 		_gameLayer->setPosition(origin + Vec2(0, visibleSize.height / 2 - 50));
 		addChild(_gameLayer);
 
-		_screenBlockCountHorizontal = 1 + visibleSize.width / Entity::BLOCK_SIZE;
+		_screenBlockCountHorizontal = 2 + visibleSize.width / Entity::BLOCK_SIZE;
 		
 		for (int i = 0; i < _screenBlockCountHorizontal; i++)
 		{
@@ -130,7 +130,7 @@ bool uba::GameScene::createGameLayer()
 			}
 		}
 
-		_playerEntity = PlayerEntity::create(_screenBlockCountHorizontal / 2);
+		_playerEntity = PlayerEntity::create(-2 + _screenBlockCountHorizontal / 2);
 		if (_playerEntity)
 		{
 			_gameLayer->addChild(_playerEntity);
