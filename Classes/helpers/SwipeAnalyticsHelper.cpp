@@ -34,24 +34,16 @@ bool uba::SwipeAnalyticsHelper::init(std::vector<std::pair<int64_t, cocos2d::Vec
 	}
 }
 
-void uba::SwipeAnalyticsHelper::setIsUpOrDown(bool isUp)
-{
-	_isUp = isUp;
-}
-
 uba::AnalyticsData uba::SwipeAnalyticsHelper::getAnalyticsData() const
 {
 	AnalyticsData result;
 
-	result.category = "swipe";
+	result.category = 1;
 
-	if (_isUp)
-		result.direction = "up";
-	else
-		result.direction = "down";
+	result.direction = getDirection();
 
 	result.username = User::getInstance().getUsername();
-	result.sex = User::getInstance().getSex();
+	result.gender = User::getInstance().getSex();
 
 	result.totalLength = getTotalLength();
 	result.totalTime = getTotalTime();
@@ -83,6 +75,13 @@ uba::AnalyticsData uba::SwipeAnalyticsHelper::getAnalyticsData() const
 
 	return result;
 }
+
+
+int uba::SwipeAnalyticsHelper::getDirection() const
+{
+	return 0;
+}
+
 
 float uba::SwipeAnalyticsHelper::getTotalLength() const
 {

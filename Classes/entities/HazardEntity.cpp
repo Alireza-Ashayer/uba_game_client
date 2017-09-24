@@ -25,27 +25,35 @@ bool HazardEntity::init(int index)
 	if (!Entity::init(index))
 		return false;
 
-	auto sprite = cocos2d::Sprite::create("textures/level_hazard.png");
-	if (sprite)
-	{
-		sprite->setPosition(_contentSize / 2);
-		addChild(sprite);
-	}
-
-
-	auto r = cocos2d::RandomHelper::random_int(0, 2);
+	auto r = cocos2d::RandomHelper::random_int(0, 1);
 
 	if (r == 0)
 	{
 		//for jump
-		setPositionY(BLOCK_SIZE);
 		_hazardType = HazardType::JUMP;
+
+		auto sprite = cocos2d::Sprite::create("textures/level_hazard.png");
+		if (sprite)
+		{
+			sprite->setPosition(_contentSize / 2 + cocos2d::Size(0, 0.7 * BLOCK_SIZE));
+			addChild(sprite);
+		}
 	}
 	else if (r == 1)
 	{
 		//for slide
-		setPositionY(1.4f * BLOCK_SIZE);
 		_hazardType = HazardType::SLIDE;
+
+		for (unsigned int i = 1; i <= 20; ++i)
+		{
+			auto sprite = cocos2d::Sprite::create("textures/level_hazard.png");
+			if (sprite)
+			{
+				sprite->setPosition(_contentSize / 2 + cocos2d::Size(0, BLOCK_SIZE / 2 + (1.1f * BLOCK_SIZE / 2)* i));
+				addChild(sprite);
+			}
+
+		}
 	}
 	else
 	{

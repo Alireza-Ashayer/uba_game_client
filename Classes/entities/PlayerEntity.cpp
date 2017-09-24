@@ -65,7 +65,7 @@ void uba::PlayerEntity::update(float dt)
 
 	if (_playerState == PlayerState::JUMP)
 	{
-		_vy -= 0.2f;
+		_vy -= 1.0f;
 		setPositionY(_position.y + _vy);
 		
 		if (_position.y < BLOCK_SIZE - 2)
@@ -81,7 +81,7 @@ void uba::PlayerEntity::update(float dt)
 		{
 			if (_scaleY > 0.5f)
 			{
-				setScaleY(_scaleY - 0.05);
+				setScaleY(_scaleY - 0.2);
 				if (_scaleY < 0.5f)
 				{
 					_slideTimer = 0;
@@ -92,7 +92,7 @@ void uba::PlayerEntity::update(float dt)
 		{
 			if (_scaleY < 1.0f)
 			{
-				setScaleY(_scaleY + 0.05);
+				setScaleY(_scaleY + 0.2);
 				if (_scaleY >= 1.0f)
 				{
 					_slideTimer = -1;
@@ -102,8 +102,8 @@ void uba::PlayerEntity::update(float dt)
 		}
 		else if (_slideTimer >= 0.0f)
 		{
-			_slideTimer += dt;
-			if (_slideTimer >= 0.4f)
+			_slideTimer += 1;
+			if (_slideTimer >= 15)
 			{
 				_slideTimer = -2;
 			}
@@ -126,7 +126,7 @@ void uba::PlayerEntity::switchPlayerState(PlayerState newState)
 		case uba::PlayerState::JUMP:
 			_currentAnimationIndex = 0;
 			_maxAnimationIndex = 2;
-			_vy = 5;
+			_vy = 12;
 			break;
 		case uba::PlayerState::SLIDE:
 			_slideTimer = -1;
@@ -148,7 +148,7 @@ bool uba::PlayerEntity::collidesWith(Entity* entity)
 
 	auto hazardBB = hazard->getPosition();
 	
-	if (_position.x > hazardBB.x + 5 && _position.x < hazardBB.x + BLOCK_SIZE - 5)
+	if (_position.x + _contentSize.width / 2 > hazardBB.x + 5 && _position.x + _contentSize.width / 2 < hazardBB.x + BLOCK_SIZE - 5)
 	{
 		if (_playerState == PlayerState::JUMP && hazard->getHazardType() == HazardType::JUMP)
 		{

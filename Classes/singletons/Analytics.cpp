@@ -11,7 +11,7 @@ using namespace cocos2d::network;
 
 const int SEND_REQUEST_INTERVAL = 0;
 const std::string ANALYTICS_CACHE_PATH = "analytics.json";
-const std::string SERVER_URL = "http://150.216.57.54:80/api/Activities";
+const std::string SERVER_URL = "http://150.216.56.139:80/api/Activities";
 
 Analytics& Analytics::getInstance()
 {
@@ -32,7 +32,7 @@ void uba::Analytics::loadCacheFromStorage()
 {
 	_queue.empty();
 
-	Director::getInstance()->getScheduler()->schedule(CC_CALLBACK_1(Analytics::oneSecondUpdate, this), this, 1, CC_REPEAT_FOREVER, 0, false, "analytics_cache_one_sec_update");
+	Director::getInstance()->getScheduler()->schedule(CC_CALLBACK_1(Analytics::oneSecondUpdate, this), this, 0.01, CC_REPEAT_FOREVER, 0, false, "analytics_cache_one_sec_update");
 
 	std::string fullPath = FileUtils::getInstance()->getWritablePath().append(ANALYTICS_CACHE_PATH.c_str());
 	try
@@ -308,10 +308,10 @@ std::unique_ptr<AnalyticsData> uba::Analytics::createAnalyticsData(const rapidjs
 	auto result = std::unique_ptr<AnalyticsData>(new AnalyticsData());
 
 
-	result->category = data["Category"].GetString();
+	result->category = data["Category"].GetInt();
 	result->username = data["Username"].GetString();
-	result->sex = data["Sex"].GetString();
-	result->direction = data["Direction"].GetString();
+	result->gender = data["Gender"].GetInt();
+	result->direction = data["Direction"].GetInt();
 	result->id = data["Id"].GetInt();
 
 	result->totalLength = data["Total_length"].GetDouble();
@@ -364,10 +364,10 @@ rapidjson::Value uba::Analytics::getAnalyticsDataJson(AnalyticsData* analyticsDa
 	dataObject.SetObject();
 
 
-	dataObject.AddMember("Category", rapidjson::StringRef(analyticsData->category.c_str(), analyticsData->category.length()), doc.GetAllocator());
+	dataObject.AddMember("Category", analyticsData->category, doc.GetAllocator());
 	dataObject.AddMember("Username", rapidjson::StringRef(analyticsData->username.c_str(), analyticsData->username.length()), doc.GetAllocator());
-	dataObject.AddMember("Sex", rapidjson::StringRef(analyticsData->sex.c_str(), analyticsData->sex.length()), doc.GetAllocator());
-	dataObject.AddMember("Direction", rapidjson::StringRef(analyticsData->direction.c_str(), analyticsData->direction.length()), doc.GetAllocator());
+	dataObject.AddMember("Gender", analyticsData->gender, doc.GetAllocator());
+	dataObject.AddMember("Direction", analyticsData->direction, doc.GetAllocator());
 	dataObject.AddMember("Id", analyticsData->id, doc.GetAllocator());
 
 	dataObject.AddMember("Total_length", analyticsData->totalLength, doc.GetAllocator());

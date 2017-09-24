@@ -16,13 +16,13 @@ NS_UBA_BEGIN
 struct AnalyticsData
 {
 	int id;
-	std::string category;
-	std::string direction;
+	int category;
+	int direction;
 	std::string username;
-	std::string sex;
+	int gender;
 	float totalLength;
 	float maxSpeed;
-	float totalTime;
+	int totalTime;
 	float averageSpeed;
 	float width;
 	float height;

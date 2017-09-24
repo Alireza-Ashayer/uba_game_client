@@ -28,7 +28,7 @@ Scene* GameScene::createScene()
 
 
 uba::GameScene::GameScene()
-	: _gameSpeed(4.5f)
+	: _gameSpeed(5.0f)
 	, _lastAddPosition(0)
 	, _screenBlockCountHorizontal(0)
 	, _playerEntity(nullptr)
@@ -181,6 +181,8 @@ void uba::GameScene::update(float dt)
 {
 	LayerColor::update(dt);
 
+	_gameSpeed += 0.002;
+
 	if (_gameState == GameState::LOST)
 	{
 		return;
@@ -191,7 +193,7 @@ void uba::GameScene::update(float dt)
 	auto newScoreInt = (int)_score;
 	if (newScoreInt != _scoreInt)
 	{
-		_scoreLabel->setString(StringUtils::toString(newScoreInt));
+		_scoreLabel->setString(std::string("Score: ") + StringUtils::toString(newScoreInt));
 		_scoreInt = newScoreInt;
 	}
 
@@ -222,7 +224,7 @@ void uba::GameScene::update(float dt)
 				else
 				{
 					entity->moveToFront(_screenBlockCountHorizontal);
-					if (entity->getIndex() % 4 == 0)
+					if (entity->getIndex() % (6) == 0)
 					{
 						putHazard = true;
 					}

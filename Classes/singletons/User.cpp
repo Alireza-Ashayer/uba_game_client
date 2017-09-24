@@ -20,7 +20,15 @@ bool uba::User::init(const std::string& username, const std::string& sex)
 	try
 	{
 		_username = username;
-		_sex = sex;
+
+		if (sex == "male")
+		{
+			_sex = 1;
+		}
+		else
+		{
+			_sex = 0;
+		}
 
 
 		return true;

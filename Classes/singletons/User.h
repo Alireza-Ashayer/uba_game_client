@@ -18,12 +18,12 @@ public:
 	void operator=(const User&) = delete;
 
 	std::string getUsername() const { return _username; }
-	std::string getSex() const { return _sex; }
+	int getSex() const { return _sex; }
 private:
 	User();
 
 	std::string _username;
-	std::string _sex;
+	int _sex;
 };
 
 NS_UBA_END

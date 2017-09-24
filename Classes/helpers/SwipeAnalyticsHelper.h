@@ -20,10 +20,9 @@ public:
 
 	AnalyticsData getAnalyticsData() const;
 
-	void setIsUpOrDown(bool isUp);
-
 private:
 
+	int getDirection() const;
 	float getTotalLength() const;
 	float getTotalTime() const;
 	float getWitdh() const;
