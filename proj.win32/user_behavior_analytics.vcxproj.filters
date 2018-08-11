@@ -87,6 +87,9 @@
     <ClCompile Include="..\Classes\helpers\SwipeAnalyticsHelper.cpp">
       <Filter>src\helpers</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\scenes\ConsentScene.cpp">
+      <Filter>src\scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -148,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\helpers\SwipeAnalyticsHelper.h">
       <Filter>src\helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\ConsentScene.h">
+      <Filter>src\scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,11 +1,12 @@
 #include "AppDelegate.h"
 #include "SimpleAudioEngine.h"
 
-#include "scenes/InitialScene.h"
+#include "scenes/ConsentScene.h"
 #include "macros/AppMacros.h"
 #include "singletons/Options.h"
 #include "singletons/StringCache.h"
 #include "singletons/Analytics.h"
+
 
 USING_NS_CC;
 USING_NS_UBA;
@@ -79,7 +80,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 
 	//create first scene
-	auto scene = InitialScene::createScene();
+	auto scene = ConsentScene::createScene();
 	if (scene)
 	{
 		director->runWithScene(scene);

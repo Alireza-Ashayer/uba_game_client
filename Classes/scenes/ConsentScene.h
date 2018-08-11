@@ -1,5 +1,5 @@
-#ifndef InitialScene_h__
-#define InitialScene_h__
+#ifndef ConsentScene_h__
+#define ConsentScene_h__
 
 
 #include "cocos2d.h"
@@ -11,13 +11,13 @@
 
 NS_UBA_BEGIN
 
-class InitialScene : public cocos2d::LayerColor
+class ConsentScene : public cocos2d::LayerColor
 {
 public:
     static cocos2d::Scene* createScene();
 
 private:
-	CREATE_FUNC(InitialScene);
+	CREATE_FUNC(ConsentScene);
 
     bool init() override;
     
@@ -27,15 +27,9 @@ private:
 	void textFieldEvent(cocos2d::Ref *pSender, cocos2d::ui::TextField::EventType type);
 	void checkBoxEvent(cocos2d::Ref* pSender, cocos2d::ui::CheckBox::EventType type);
 
-	TextBoxWrapper* _usernameField;
-	ButtonWrapper* _playButton;
-	CheckBoxWrapper* _maleCheckBox;
-	CheckBoxWrapper* _femaleCheckBox;
 
-	CheckBoxWrapper* _oldCheckBox;
-	CheckBoxWrapper* _youngCheckBox;
 };
 
 NS_UBA_END
 
-#endif // InitialScene_h__
+#endif // ConsentScene_h__

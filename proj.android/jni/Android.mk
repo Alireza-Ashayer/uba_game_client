@@ -21,6 +21,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
 				   ../../Classes/scenes/InitialScene.cpp \
 				   ../../Classes/scenes/LoginScene.cpp \
 				   ../../Classes/scenes/RegisterScene.cpp \
+				   ../../Classes/scenes/ConsentScene.cpp \
 				   ../../Classes/singletons/Analytics.cpp \
 				   ../../Classes/singletons/Options.cpp \
 				   ../../Classes/singletons/StringCache.cpp \

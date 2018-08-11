@@ -20,6 +20,7 @@ struct AnalyticsData
 	int direction;
 	std::string username;
 	int gender;
+	int ageGroup;
 	float totalLength;
 	float maxSpeed;
 	int totalTime;

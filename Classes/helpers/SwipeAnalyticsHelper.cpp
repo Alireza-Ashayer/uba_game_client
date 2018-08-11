@@ -44,6 +44,7 @@ uba::AnalyticsData uba::SwipeAnalyticsHelper::getAnalyticsData() const
 
 	result.username = User::getInstance().getUsername();
 	result.gender = User::getInstance().getSex();
+	result.ageGroup = User::getInstance().getAgeGroup();
 
 	result.totalLength = getTotalLength();
 	result.totalTime = getTotalTime();

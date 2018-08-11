@@ -16,5 +16,8 @@
     "EXIT" : "Exit",
     "RESTART" : "Restart",
 	"USER_NAME" : "Username",
-    "USER_NAME_ERROR" : "Please enter a username"
+    "USER_NAME_ERROR" : "Please enter a username",
+    "CONSENT" : "You are being invited to participate in a research study titled User Profiling in Smartphone Applications being conducted by Alireza Ashayer, a graduate student at East Carolina University in the Computer Science department. The goal is to survey around a hundred individuals by asking them to install and play a video game on their smartphone in any location and time they prefer. The survey will take approximately 5 minutes to complete in total. It is hoped that this information will assist us to better understand the possibility of predicting user soft-biometrics based on their interactions with their smartphones. Your responses will be kept confidential and no data will be released or used with your identification attached. Your participation in the research is voluntary. You may choose not to answer any or all questions, and you may stop at any time. There is no penalty for not taking part in this research study. Please call Alireza Ashayer at 252-481-8620 for any research related questions or the Office of Research Integrity & Compliance (ORIC) at 252-744-2914 for questions about your rights as a research participant.",
+    "ACCEPT" : "Accept",
+    "REJECT" : "Reject"
 }

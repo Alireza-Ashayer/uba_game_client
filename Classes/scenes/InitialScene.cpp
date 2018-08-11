@@ -57,7 +57,7 @@ bool InitialScene::createUI()
 	}
 
 
-	_usernameField = TextBoxWrapper::createByKey("USER_NAME", 24);
+	_usernameField = TextBoxWrapper::createByKey("Please enter your name", 24);
 	if (_usernameField)
 	{
 		_usernameField->setName("username_textbox");
@@ -73,7 +73,7 @@ bool InitialScene::createUI()
 	if (_maleCheckBox)
 	{
 		_maleCheckBox->setName("male_checkbox");
-		_maleCheckBox->setPosition(visibleSize / 2 + Size(-100, -50));
+		_maleCheckBox->setPosition(visibleSize / 2 + Size(-100, 0));
 		_maleCheckBox->addEventListener(CC_CALLBACK_2(InitialScene::checkBoxEvent, this));
 		addChild(_maleCheckBox);
 	}
@@ -82,10 +82,30 @@ bool InitialScene::createUI()
 	if (_femaleCheckBox)
 	{
 		_femaleCheckBox->setName("female_checkbox");
-		_femaleCheckBox->setPosition(visibleSize / 2 + Size(50, -50));
+		_femaleCheckBox->setPosition(visibleSize / 2 + Size(50, 0));
 		_femaleCheckBox->addEventListener(CC_CALLBACK_2(InitialScene::checkBoxEvent, this));
 		addChild(_femaleCheckBox);
 	}
+
+
+	_youngCheckBox = CheckBoxWrapper::createByKey("Age: -40", false);
+	if (_youngCheckBox)
+	{
+		_youngCheckBox->setName("young_checkbox");
+		_youngCheckBox->setPosition(visibleSize / 2 + Size(-100, -50));
+		_youngCheckBox->addEventListener(CC_CALLBACK_2(InitialScene::checkBoxEvent, this));
+		addChild(_youngCheckBox);
+	}
+
+	_oldCheckBox = CheckBoxWrapper::createByKey("Age: +40", false);
+	if (_oldCheckBox)
+	{
+		_oldCheckBox->setName("old_checkbox");
+		_oldCheckBox->setPosition(visibleSize / 2 + Size(50, -50));
+		_oldCheckBox->addEventListener(CC_CALLBACK_2(InitialScene::checkBoxEvent, this));
+		addChild(_oldCheckBox);
+	}
+
 
 	if (_maleCheckBox && _femaleCheckBox)
 	{
@@ -93,6 +113,13 @@ bool InitialScene::createUI()
 		_femaleCheckBox->setUserData(_maleCheckBox);
 	}
 
+	if (_youngCheckBox && _oldCheckBox)
+	{
+		_youngCheckBox->setUserData(_oldCheckBox);
+		_oldCheckBox->setUserData(_youngCheckBox);
+	}
+
+	
 
 	//play button
 	_playButton = ButtonWrapper::createByKey("PLAY", 24);
@@ -144,20 +171,25 @@ void uba::InitialScene::buttonCallback(cocos2d::Ref* pSender, cocos2d::ui::Butto
 				auto username = _usernameField->getString();
 
 				std::string sex;
-				if (_maleCheckBox->isSelected())
-				{
-					sex = "male";
-				}
-				else if (_femaleCheckBox->isSelected())
-				{
-					sex = "female";
-				}
-				else
-				{
-					sex = "";
-				}
+				std::string ageGroup;
 
-				User::getInstance().init(username, sex);
+				if (_maleCheckBox->isSelected())
+					sex = "male";
+				else if (_femaleCheckBox->isSelected())
+					sex = "female";
+				else
+					sex = "";
+
+				if (_oldCheckBox->isSelected())
+					ageGroup = "+40";
+				else if (_youngCheckBox->isSelected())
+					ageGroup = "-40";
+				else
+					ageGroup = "";
+
+
+
+				User::getInstance().init(username, sex, ageGroup);
 
 				auto scene = GameScene::createScene();
 				if (scene)
@@ -168,6 +200,7 @@ void uba::InitialScene::buttonCallback(cocos2d::Ref* pSender, cocos2d::ui::Butto
 
 		}
 	}
+	
 }
 
 

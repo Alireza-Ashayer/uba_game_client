@@ -11,7 +11,8 @@ using namespace cocos2d::network;
 
 const int SEND_REQUEST_INTERVAL = 0;
 const std::string ANALYTICS_CACHE_PATH = "analytics.json";
-const std::string SERVER_URL = "http://150.216.56.139:80/api/Activities";
+const std::string SERVER_URL = "http://150.216.56.172:80/api/Activities";
+//const std::string SERVER_URL = "http://255.216.56.172:80/api/Activities";
 
 Analytics& Analytics::getInstance()
 {
@@ -59,7 +60,7 @@ void uba::Analytics::loadCacheFromStorage()
 		if (d.GetType() == rapidjson::kArrayType)
 		{
 			for (unsigned int i = 0; i < d.Size(); i++)
-			{
+			{	
 				auto& analyticsJson = d[i];
 
 				if (analyticsJson.GetType() == rapidjson::kObjectType)
@@ -311,6 +312,7 @@ std::unique_ptr<AnalyticsData> uba::Analytics::createAnalyticsData(const rapidjs
 	result->category = data["Category"].GetInt();
 	result->username = data["Username"].GetString();
 	result->gender = data["Gender"].GetInt();
+	result->ageGroup = data["AgeGroup"].GetInt();
 	result->direction = data["Direction"].GetInt();
 	result->id = data["Id"].GetInt();
 
@@ -367,6 +369,7 @@ rapidjson::Value uba::Analytics::getAnalyticsDataJson(AnalyticsData* analyticsDa
 	dataObject.AddMember("Category", analyticsData->category, doc.GetAllocator());
 	dataObject.AddMember("Username", rapidjson::StringRef(analyticsData->username.c_str(), analyticsData->username.length()), doc.GetAllocator());
 	dataObject.AddMember("Gender", analyticsData->gender, doc.GetAllocator());
+	dataObject.AddMember("AgeGroup", analyticsData->ageGroup, doc.GetAllocator());
 	dataObject.AddMember("Direction", analyticsData->direction, doc.GetAllocator());
 	dataObject.AddMember("Id", analyticsData->id, doc.GetAllocator());
 
