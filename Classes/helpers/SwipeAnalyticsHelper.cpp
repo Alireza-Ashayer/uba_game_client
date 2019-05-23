@@ -1,5 +1,5 @@
 #include "SwipeAnalyticsHelper.h"
-#include "singletons\User.h"
+#include "singletons/User.h"
 #include <limits>
 
 USING_NS_UBA;

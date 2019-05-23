@@ -1,6 +1,7 @@
 #ifndef SwipeAnalyticsHelper_h__
 #define SwipeAnalyticsHelper_h__
 
+
 #include "macros/AppMacros.h"
 #include "singletons/Analytics.h"
 

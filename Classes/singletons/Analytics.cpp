@@ -11,7 +11,7 @@ using namespace cocos2d::network;
 
 const int SEND_REQUEST_INTERVAL = 0;
 const std::string ANALYTICS_CACHE_PATH = "analytics.json";
-const std::string SERVER_URL = "http://150.216.56.172:80/api/Activities";
+const std::string SERVER_URL = "http://150.216.82.167:80/api/Activities";
 //const std::string SERVER_URL = "http://255.216.56.172:80/api/Activities";
 
 Analytics& Analytics::getInstance()
@@ -103,7 +103,7 @@ void uba::Analytics::addAnalyticsData(std::unique_ptr<AnalyticsData> data, bool 
 {
 	if (cache)
 	{
-		//cacheAnalyticsData(data.get());
+		cacheAnalyticsData(data.get());
 	}
 
 	_queue.push(std::move(data));
@@ -267,7 +267,7 @@ void uba::Analytics::onHttpRequestCompleted(cocos2d::network::HttpClient* sender
 				{
 					auto& obj = *it;
 
-					auto jsonId = obj["id"].GetInt();
+					auto jsonId = obj["Id"].GetInt();
 
 					if (jsonId == id)
 					{
